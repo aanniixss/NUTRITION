@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANIS·OS — WARRIOR</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════
+   WARRIOR THEME — ANIS·OS
+   Noir · Anthracite · Rouge Braise · Bronze
+   ══════════════════════════════════════ */
+:root{
+  /* ── Fonds ── */
+  --bg:#060608;
+  --bg2:#0b0b0e;
+  --bg3:#101014;
+  --card:#151519;
+  --card2:#1c1c22;
+  /* ── Bordures ── */
+  --border:#222228;
+  --border2:#2e2e38;
+  /* ── Accent principal : rouge braise ── */
+  --accent:#c0392b;
+  --accent-bright:#e74c3c;
+  --accent-dim:rgba(192,57,43,.13);
+  --accent-glow:rgba(192,57,43,.35);
+  /* ── Accent secondaire : bronze/or ── */
+  --gold:#b8892a;
+  --gold-bright:#d4a843;
+  --gold-dim:rgba(184,137,42,.12);
+  --gold-glow:rgba(184,137,42,.3);
+  /* ── Acier / argent froid ── */
+  --steel:#7a8494;
+  --steel-dim:rgba(122,132,148,.1);
+  /* ── Texte ── */
+  --text:#e8e6e3;
+  --text2:#8a8a96;
+  --text3:#4e4e5a;
+  /* ── États ── */
+  --success:#2d8a4e;
+  --success-bright:#3dae63;
+  --warn:#c47c1a;
+  --warn-bright:#e8942a;
+  --danger:#b02020;
+  --danger-bright:#d93030;
+  /* ── Typo ── */
+  --font-d:'Syne',sans-serif;
+  --font-b:'Inter',sans-serif;
+  --font-m:'JetBrains Mono',monospace;
+  --r:8px;
+  --r2:12px;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--font-b);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+/* Ambiance rouge braise en haut à gauche, bronze en bas à droite */
+body::before{
+  content:'';position:fixed;top:-40%;left:-15%;width:55%;height:55%;
+  background:radial-gradient(ellipse,rgba(192,57,43,.06) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+body::after{
+  content:'';position:fixed;bottom:-30%;right:-10%;width:45%;height:45%;
+  background:radial-gradient(ellipse,rgba(184,137,42,.04) 0%,transparent 65%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  background:rgba(6,6,8,.97);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  padding:0 24px;
+  box-shadow:0 1px 0 rgba(192,57,43,.08);
+}
+.nav-inner{max-width:1440px;margin:0 auto;display:flex;align-items:center;gap:2px;overflow-x:auto;height:52px;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-logo{
+  font-family:var(--font-d);font-size:17px;font-weight:800;
+  color:var(--accent-bright);letter-spacing:5px;margin-right:24px;
+  white-space:nowrap;text-shadow:0 0 24px var(--accent-glow);
+}
+.nav-btn{
+  background:none;border:none;color:var(--text3);font-family:var(--font-b);
+  font-size:11px;font-weight:600;padding:5px 10px;border-radius:5px;
+  cursor:pointer;white-space:nowrap;transition:all .15s;letter-spacing:.3px;
+}
+.nav-btn:hover{background:var(--bg3);color:var(--text2)}
+.nav-btn.active{
+  background:var(--accent-dim);color:var(--accent-bright);
+  border:1px solid rgba(192,57,43,.28);
+}
+
+/* ── LAYOUT ── */
+main{max-width:1440px;margin:0 auto;padding:68px 24px 60px;position:relative;z-index:1}
+.section{display:none}
+.section.active{display:block;animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── SECTION HEADER ── */
+.sec-header{margin-bottom:28px}
+.sec-eyebrow{
+  font-size:9.5px;font-weight:700;letter-spacing:3.5px;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;display:flex;align-items:center;gap:8px;
+}
+.sec-eyebrow::before{content:'';width:18px;height:1px;background:var(--accent);opacity:.6}
+.sec-title{
+  font-family:var(--font-d);font-size:38px;font-weight:800;letter-spacing:2px;
+  color:var(--text);line-height:1;margin-bottom:4px;
+}
+.sec-sub{color:var(--text3);font-size:12px;letter-spacing:.3px}
+
+/* ── GRIDS ── */
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+@media(max-width:900px){.grid-3,.grid-4{grid-template-columns:1fr 1fr}}
+@media(max-width:600px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}}
+
+/* ── CARDS ── */
+.card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:18px;position:relative;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s;
+}
+.card:hover{
+  border-color:var(--border2);
+  box-shadow:0 4px 24px rgba(0,0,0,.4),0 0 0 1px rgba(192,57,43,.06);
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:1px;
+  background:linear-gradient(90deg,transparent,rgba(192,57,43,.15),transparent);
+}
+.card-label{font-size:9.5px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--text3);margin-bottom:10px}
+.card-value{font-family:var(--font-d);font-size:42px;font-weight:700;color:var(--text);line-height:1}
+.card-unit{font-size:11px;color:var(--text3);margin-top:5px;letter-spacing:.2px}
+
+/* Card color variants — Warrior palette */
+.card-lime{background:linear-gradient(135deg,var(--card),rgba(192,57,43,.07));border-color:rgba(192,57,43,.2)}
+.card-lime .card-value{color:var(--accent-bright);text-shadow:0 0 20px var(--accent-glow)}
+.card-cyan{background:linear-gradient(135deg,var(--card),rgba(184,137,42,.06));border-color:rgba(184,137,42,.18)}
+.card-cyan .card-value{color:var(--gold-bright)}
+.card-orange{background:linear-gradient(135deg,var(--card),rgba(184,137,42,.05));border-color:rgba(184,137,42,.15)}
+.card-orange .card-value{color:var(--gold)}
+.card-green{background:linear-gradient(135deg,var(--card),rgba(45,138,78,.05));border-color:rgba(45,138,78,.15)}
+.card-green .card-value{color:var(--success-bright)}
+.card-violet{background:linear-gradient(135deg,var(--card),rgba(122,132,148,.05));border-color:rgba(122,132,148,.12)}
+.card-violet .card-value{color:var(--steel)}
+
+/* ── PHASE BADGE ── */
+.phase-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--accent-dim);
+  border:1px solid rgba(192,57,43,.3);
+  border-radius:3px;padding:5px 14px;
+  font-size:10.5px;font-weight:700;letter-spacing:2px;
+  color:var(--accent-bright);margin-bottom:16px;
+  text-transform:uppercase;
+}
+.phase-dot{width:5px;height:5px;border-radius:50%;background:var(--accent-bright);animation:blink 2s infinite;box-shadow:0 0 8px var(--accent-glow)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* ── PROGRESS ── */
+.progress-wrap{margin:10px 0}
+.progress-label{display:flex;justify-content:space-between;font-size:10px;color:var(--text3);margin-bottom:5px}
+.progress-bar{height:3px;background:var(--bg3);border-radius:1px;overflow:hidden}
+.progress-fill{height:100%;border-radius:1px;transition:width 1s ease}
+.pf-lime{background:linear-gradient(90deg,var(--accent),rgba(192,57,43,.5))}
+.pf-cyan{background:linear-gradient(90deg,var(--gold-bright),rgba(184,137,42,.5))}
+.pf-green{background:linear-gradient(90deg,var(--success-bright),rgba(61,174,99,.4))}
+.pf-orange{background:linear-gradient(90deg,var(--gold),rgba(184,137,42,.4))}
+
+/* ── TIMELINE ── */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{
+  content:'';position:absolute;left:7px;top:0;bottom:0;width:1px;
+  background:linear-gradient(180deg,var(--accent) 0%,var(--border) 60%,transparent 100%);
+}
+.tl-item{position:relative;margin-bottom:26px}
+.tl-item::before{
+  content:'';position:absolute;left:-21px;top:4px;width:9px;height:9px;
+  border-radius:50%;border:1px solid var(--text3);background:var(--bg);
+}
+.tl-item.active::before{background:var(--accent-bright);border-color:var(--accent);box-shadow:0 0 14px var(--accent-glow)}
+.tl-item.done::before{background:var(--success-bright);border-color:var(--success)}
+.tl-phase{font-family:var(--font-d);font-size:18px;font-weight:700;color:var(--text);letter-spacing:1px;margin-bottom:3px}
+.tl-dates{font-size:10px;color:var(--accent-bright);font-family:var(--font-m);margin-bottom:6px;letter-spacing:.5px}
+.tl-desc{font-size:12px;color:var(--text2);line-height:1.65}
+.tl-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:9px}
+.tag{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:2px 8px;font-size:10px;color:var(--text3)}
+.tag.active{border-color:rgba(192,57,43,.35);color:var(--accent-bright);background:var(--accent-dim)}
+
+/* ── FORMS ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:600px){.form-grid{grid-template-columns:1fr}}
+.form-group{display:flex;flex-direction:column;gap:5px}
+.form-group label{font-size:9.5px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--text3)}
+.form-group input,.form-group select,.form-group textarea{
+  background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:9px 12px;color:var(--text);font-family:var(--font-b);font-size:13px;
+  outline:none;transition:.2s;width:100%;
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:rgba(192,57,43,.5);background:var(--bg2);
+  box-shadow:0 0 0 3px rgba(192,57,43,.08);
+}
+.form-group textarea{resize:vertical;min-height:76px}
+select option{background:var(--bg3)}
+
+/* ── BUTTONS ── */
+.btn{
+  display:inline-flex;align-items:center;gap:7px;padding:9px 18px;
+  border-radius:6px;border:none;cursor:pointer;font-family:var(--font-b);
+  font-size:12.5px;font-weight:700;transition:.15s;letter-spacing:.3px;white-space:nowrap;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent-bright));
+  color:#fff;letter-spacing:.5px;text-transform:uppercase;font-size:11.5px;
+  box-shadow:0 2px 12px rgba(192,57,43,.3);
+}
+.btn-primary:hover{
+  background:linear-gradient(135deg,var(--accent-bright),#ff4444);
+  transform:translateY(-1px);box-shadow:0 4px 20px rgba(192,57,43,.5);
+}
+.btn-secondary{background:var(--bg3);border:1px solid var(--border);color:var(--text2)}
+.btn-secondary:hover{border-color:rgba(192,57,43,.35);color:var(--accent-bright)}
+.btn-cyan{background:var(--gold-dim);border:1px solid rgba(184,137,42,.3);color:var(--gold-bright)}
+.btn-danger{background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.25);color:var(--accent-bright)}
+.btn-sm{padding:5px 11px;font-size:11px}
+
+/* ── MACROS ── */
+.macro-row{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+.macro-row:last-child{border:none}
+.macro-name{font-size:11.5px;font-weight:600;min-width:88px;color:var(--text2)}
+.macro-bar{flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden}
+.macro-fill{height:100%;border-radius:2px}
+.mf-p{background:linear-gradient(90deg,#c0392b,#e05a4a)}
+.mf-c{background:linear-gradient(90deg,#b8892a,#d4a843)}
+.mf-f{background:linear-gradient(90deg,#6b7280,#9ca3af)}
+.macro-val{font-family:var(--font-m);font-size:10.5px;color:var(--text3);min-width:85px;text-align:right}
+
+/* ── CARDIO CARDS ── */
+.cardio-day{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:13px;margin-bottom:8px;transition:border-color .15s}
+.cardio-day:hover{border-color:var(--border2)}
+.cardio-day-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:7px}
+.cardio-day-name{font-weight:600;font-size:12.5px;color:var(--text)}
+.cardio-type-badge{font-size:9.5px;padding:2px 9px;border-radius:3px;font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.type-base{background:rgba(184,137,42,.1);color:var(--gold-bright);border:1px solid rgba(184,137,42,.25)}
+.type-interval{background:rgba(192,57,43,.1);color:var(--accent-bright);border:1px solid rgba(192,57,43,.25)}
+.type-tempo{background:rgba(122,132,148,.1);color:var(--steel);border:1px solid rgba(122,132,148,.2)}
+.type-rest{background:rgba(50,50,58,.5);color:var(--text3);border:1px solid var(--border)}
+.type-active{background:rgba(45,138,78,.08);color:var(--success-bright);border:1px solid rgba(45,138,78,.2)}
+
+/* ── POSTURE CHECKLIST ── */
+.check-item{
+  display:flex;align-items:center;gap:12px;padding:10px;
+  background:var(--bg3);border-radius:var(--r);margin-bottom:6px;
+  cursor:pointer;transition:all .15s;border:1px solid var(--border);
+}
+.check-item:hover{border-color:rgba(192,57,43,.2);background:rgba(192,57,43,.03)}
+.check-item.done{border-color:rgba(45,138,78,.2);background:rgba(45,138,78,.03)}
+.check-box{
+  width:17px;height:17px;border-radius:3px;border:1px solid var(--border2);
+  flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  transition:.15s;font-size:10px;
+}
+.check-item.done .check-box{background:var(--success-bright);border-color:var(--success);color:#fff}
+.check-text{font-size:12.5px;flex:1;font-weight:500}
+.check-desc{font-size:10.5px;color:var(--text3);margin-top:1px}
+
+/* ── ALERTS ── */
+.alert{border-radius:var(--r);padding:12px 14px;margin-bottom:10px;border:1px solid;font-size:12px;line-height:1.6}
+.alert-warn{background:rgba(196,124,26,.05);border-color:rgba(196,124,26,.2);color:var(--warn-bright)}
+.alert-success{background:rgba(45,138,78,.05);border-color:rgba(45,138,78,.2);color:var(--success-bright)}
+.alert-danger{background:rgba(192,57,43,.06);border-color:rgba(192,57,43,.2);color:var(--accent-bright)}
+.alert-info{background:rgba(184,137,42,.05);border-color:rgba(184,137,42,.2);color:var(--gold-bright)}
+.alert-lime{background:var(--accent-dim);border-color:rgba(192,57,43,.25);color:var(--accent-bright)}
+.alert-title{font-weight:700;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px}
+
+/* ── WORKOUT ── */
+.workout-card{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:16px;margin-bottom:10px;transition:border-color .15s,box-shadow .15s;
+}
+.workout-card:hover{
+  border-color:rgba(192,57,43,.2);
+  box-shadow:0 4px 20px rgba(0,0,0,.3),inset 0 0 0 1px rgba(192,57,43,.04);
+}
+.workout-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.workout-day{font-family:var(--font-d);font-size:22px;font-weight:700;color:var(--accent-bright);letter-spacing:1px}
+.workout-muscles{font-size:10.5px;color:var(--text3);margin-top:2px}
+.workout-focus{
+  display:inline-flex;padding:3px 9px;background:var(--accent-dim);
+  border:1px solid rgba(192,57,43,.2);border-radius:3px;
+  font-size:9.5px;color:var(--accent-bright);font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+}
+.exercise-list{list-style:none}
+.exercise-list li{padding:7px 0;border-bottom:1px solid rgba(255,255,255,.025);font-size:12px;display:flex;justify-content:space-between;gap:8px}
+.exercise-list li:last-child{border:none}
+.ex-sets{font-family:var(--font-m);font-size:10.5px;color:var(--text3);white-space:nowrap}
+
+/* ── MEASURES ── */
+.measure-input-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+@media(max-width:600px){.measure-input-row{grid-template-columns:1fr 1fr}}
+
+/* ── CHART ── */
+.chart-wrap{position:relative;height:190px;margin-top:12px}
+
+/* ── INTEL ── */
+.intel-item{
+  display:flex;gap:12px;padding:12px;background:var(--bg3);border-radius:var(--r);
+  margin-bottom:6px;border-left:2px solid var(--accent);
+}
+.intel-item.warn{border-color:var(--warn-bright)}
+.intel-item.danger{border-color:var(--danger-bright)}
+.intel-item.good{border-color:var(--success-bright)}
+.intel-icon{font-size:17px;flex-shrink:0;margin-top:1px}
+.intel-title{font-size:12px;font-weight:600;margin-bottom:2px;color:var(--text)}
+.intel-desc{font-size:11px;color:var(--text2);line-height:1.55}
+
+/* ── DATE DISPLAY ── */
+.today-hero{display:flex;align-items:baseline;gap:12px;margin-bottom:18px}
+.today-date{font-family:var(--font-d);font-size:30px;font-weight:700;letter-spacing:2px;color:var(--text)}
+.today-day{font-size:12px;color:var(--text3)}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:2px;margin-bottom:18px;border-bottom:1px solid var(--border)}
+.tab{
+  padding:9px 13px;font-size:11.5px;font-weight:600;color:var(--text3);
+  cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;
+  transition:.15s;letter-spacing:.3px;
+}
+.tab.active{color:var(--accent-bright);border-color:var(--accent)}
+
+/* ── FOOD TABLE ── */
+.food-table{width:100%;border-collapse:collapse;font-size:12px}
+.food-table th{
+  text-align:left;padding:8px 10px;font-size:9.5px;font-weight:700;letter-spacing:2px;
+  text-transform:uppercase;color:var(--text3);border-bottom:1px solid var(--border);background:var(--bg3);
+}
+.food-table td{padding:8px 10px;border-bottom:1px solid rgba(255,255,255,.02);color:var(--text2)}
+.food-table tr:hover td{background:rgba(192,57,43,.03);color:var(--text)}
+.food-name{color:var(--text);font-weight:600}
+.food-protein{color:var(--accent-bright)}
+.food-carbs{color:var(--gold-bright)}
+.food-fat{color:var(--steel)}
+.food-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:3px;font-weight:700;vertical-align:middle}
+.badge-cru{background:rgba(184,137,42,.1);color:var(--gold-bright);border:1px solid rgba(184,137,42,.2)}
+.badge-cuit{background:rgba(196,124,26,.1);color:var(--warn-bright);border:1px solid rgba(196,124,26,.2)}
+.food-search{
+  width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:9px 12px;color:var(--text);font-size:13px;outline:none;
+  margin-bottom:12px;font-family:var(--font-b);transition:.2s;
+}
+.food-search:focus{border-color:rgba(192,57,43,.4)}
+
+/* ── COACH IA ── */
+.coach-header{
+  display:flex;align-items:center;gap:14px;padding:16px;
+  background:linear-gradient(135deg,var(--card),rgba(192,57,43,.05));
+  border:1px solid rgba(192,57,43,.18);border-radius:var(--r2);margin-bottom:16px;
+}
+.coach-avatar{
+  width:44px;height:44px;border-radius:50%;background:var(--accent-dim);
+  border:1.5px solid rgba(192,57,43,.4);display:flex;align-items:center;
+  justify-content:center;font-size:20px;flex-shrink:0;
+  box-shadow:0 0 12px rgba(192,57,43,.2);
+}
+.coach-name{font-family:var(--font-d);font-size:17px;font-weight:700;color:var(--accent-bright);letter-spacing:1.5px}
+.coach-status{font-size:10.5px;color:var(--text3);margin-top:2px;display:flex;align-items:center;gap:5px}
+.coach-online-dot{width:5px;height:5px;background:var(--success-bright);border-radius:50%;animation:blink 2s infinite}
+
+.chat-context-bar{
+  background:var(--bg3);border:1px solid var(--border);border-radius:var(--r);
+  padding:10px 14px;margin-bottom:10px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+}
+@media(max-width:600px){.chat-context-bar{grid-template-columns:1fr 1fr}}
+.ctx-item{text-align:center}
+.ctx-label{font-size:9px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-weight:700}
+.ctx-value{font-family:var(--font-m);font-size:13px;color:var(--text);margin-top:2px}
+.ctx-value.lime{color:var(--accent-bright)}
+.ctx-value.cyan{color:var(--gold-bright)}
+.ctx-value.orange{color:var(--gold)}
+
+.chat-wrap{
+  height:400px;overflow-y:auto;padding:14px;display:flex;flex-direction:column;
+  gap:10px;background:var(--bg3);border-radius:var(--r2);border:1px solid var(--border);
+  margin-bottom:10px;
+}
+.chat-wrap::-webkit-scrollbar{width:3px}
+.chat-wrap::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+.chat-msg{max-width:84%;line-height:1.6}
+.chat-msg.user{
+  align-self:flex-end;background:rgba(192,57,43,.1);
+  border:1px solid rgba(192,57,43,.22);border-radius:10px 10px 2px 10px;
+  padding:10px 14px;font-size:13px;color:var(--accent-bright);
+}
+.chat-msg.bot{
+  align-self:flex-start;background:var(--card2);border:1px solid var(--border2);
+  border-radius:2px 10px 10px 10px;padding:12px 14px;font-size:12.5px;color:var(--text2);
+}
+.chat-msg.bot strong{color:var(--text)}
+.chat-msg.bot .bot-label{
+  font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--accent-bright);margin-bottom:6px;display:flex;align-items:center;gap:5px;
+}
+.chat-msg.typing{opacity:.5}
+
+.chat-suggestions{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.chat-suggestion{
+  background:var(--card2);border:1px solid var(--border2);border-radius:3px;
+  padding:5px 13px;font-size:11px;color:var(--text2);cursor:pointer;
+  transition:.15s;font-family:var(--font-b);letter-spacing:.2px;
+}
+.chat-suggestion:hover{border-color:rgba(192,57,43,.35);color:var(--accent-bright);background:var(--accent-dim)}
+.chat-input-row{display:flex;gap:8px}
+.chat-input{
+  flex:1;background:var(--bg3);border:1px solid var(--border);border-radius:6px;
+  padding:10px 14px;color:var(--text);font-size:13px;outline:none;
+  font-family:var(--font-b);transition:.2s;
+}
+.chat-input:focus{border-color:rgba(192,57,43,.45);box-shadow:0 0 0 3px rgba(192,57,43,.07)}
+.chat-input::placeholder{color:var(--text3)}
+
+/* ── CARDIO CONCEPTS ── */
+.concept-card{
+  display:flex;gap:12px;padding:12px;background:var(--card2);
+  border-radius:var(--r);border:1px solid var(--border);margin-bottom:8px;
+}
+.concept-icon{font-size:20px;flex-shrink:0}
+.concept-title{font-size:12px;font-weight:700;color:var(--text);margin-bottom:2px}
+.concept-desc{font-size:11px;color:var(--text2);line-height:1.55}
+.weekly-sched{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;margin:12px 0}
+@media(max-width:600px){.weekly-sched{grid-template-columns:repeat(4,1fr)}}
+.sched-day{background:var(--bg3);border:1px solid var(--border);border-radius:6px;padding:8px 5px;text-align:center}
+.sched-day.sd-cardio{border-color:rgba(184,137,42,.25);background:rgba(184,137,42,.04)}
+.sched-day.sd-muscu{border-color:rgba(192,57,43,.2);background:rgba(192,57,43,.03)}
+.sched-day.sd-rest{opacity:.4}
+.sched-day-name{font-size:9.5px;font-weight:700;color:var(--text3);letter-spacing:.5px;margin-bottom:4px;text-transform:uppercase}
+.sched-day-type{font-size:9.5px;color:var(--text2);line-height:1.3}
+
+/* ── BADGES ── */
+.retro-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(196,124,26,.07);border:1px solid rgba(196,124,26,.2);
+  color:var(--warn-bright);border-radius:4px;padding:3px 9px;font-size:10.5px;font-weight:700;
+}
+.existing-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(45,138,78,.07);border:1px solid rgba(45,138,78,.2);
+  color:var(--success-bright);border-radius:4px;padding:3px 9px;font-size:10.5px;font-weight:700;
+}
+
+/* ── UTILS ── */
+.divider{height:1px;background:var(--border);margin:18px 0}
+.flex{display:flex;align-items:center;gap:10px}
+.flex-between{display:flex;align-items:center;justify-content:space-between}
+.flex-wrap{flex-wrap:wrap}
+.mt-8{margin-top:8px}.mt-12{margin-top:12px}.mt-16{margin-top:16px}
+.mb-8{margin-bottom:8px}.mb-12{margin-bottom:12px}.mb-16{margin-bottom:16px}
+/* Alias classes — mapped to warrior colors */
+.text-lime{color:var(--accent-bright)}
+.text-cyan{color:var(--gold-bright)}
+.text-orange{color:var(--gold)}
+.text-muted{color:var(--text3)}.text-2{color:var(--text2)}.text-success{color:var(--success-bright)}
+.text-sm{font-size:12.5px}.text-xs{font-size:10.5px}.font-mono{font-family:var(--font-m)}.bold{font-weight:700}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:rgba(192,57,43,.25);border-radius:2px}
+::-webkit-scrollbar-thumb:hover{background:rgba(192,57,43,.4)}
+
+/* ── TOAST ── */
+#toast{
+  position:fixed;bottom:20px;right:20px;z-index:999;
+  background:linear-gradient(135deg,var(--accent),var(--accent-bright));
+  color:#fff;padding:10px 18px;border-radius:6px;font-weight:700;font-size:12.5px;
+  letter-spacing:.3px;transform:translateY(60px);opacity:0;transition:.22s;
+  box-shadow:0 4px 20px var(--accent-glow);text-transform:uppercase;
+}
+#toast.show{transform:translateY(0);opacity:1}
+</style>
+</head>
+<body>
+<div id="toast"></div>
+
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">ANIS·OS</div>
+    <button class="nav-btn active" onclick="showSection('dashboard')">🏠 Dashboard</button>
+    <button class="nav-btn" onclick="showSection('timeline')">📅 Timeline</button>
+    <button class="nav-btn" onclick="showSection('nutrition')">🍽️ Nutrition</button>
+    <button class="nav-btn" onclick="showSection('tracker')">📓 Journal</button>
+    <button class="nav-btn" onclick="showSection('cardio')">🏃 Cardio</button>
+    <button class="nav-btn" onclick="showSection('workout')">🏋️ Muscu</button>
+    <button class="nav-btn" onclick="showSection('posture')">🧘 Posture</button>
+    <button class="nav-btn" onclick="showSection('measures')">📏 Mesures</button>
+    <button class="nav-btn" onclick="showSection('charts')">📊 Stats</button>
+    <button class="nav-btn" onclick="showSection('intel')">🧠 Analyse</button>
+    <button class="nav-btn" onclick="showSection('aliments')">🥗 Aliments</button>
+    <button class="nav-btn" onclick="showSection('coach')">🤖 Coach IA</button>
+  </div>
+</nav>
+
+<main>
+
+<!-- ════════════════════════════════ DASHBOARD ════════════════════════════════ -->
+<div id="sec-dashboard" class="section active">
+  <div class="phase-badge"><span class="phase-dot"></span><span id="dash-phase-label">PHASE 1 — FONDATIONS</span></div>
+  <div class="sec-header">
+    <div class="sec-title">🏠 DASHBOARD</div>
+    <div class="sec-sub">Vue d'ensemble · Anis, 21 ans · 1m83 · Départ 21 avril 2026</div>
+  </div>
+
+  <div class="grid-4 mb-12">
+    <div class="card card-lime">
+      <div class="card-label">🔥 Jours actifs</div>
+      <div class="card-value" id="dash-days">0</div>
+      <div class="card-unit">depuis le 21 avril 2026</div>
+    </div>
+    <div class="card">
+      <div class="card-label">⚖️ Poids actuel</div>
+      <div class="card-value" id="dash-weight">83</div>
+      <div class="card-unit">kg · objectif 83 kg sec</div>
+    </div>
+    <div class="card card-orange">
+      <div class="card-label">📍 Phase en cours</div>
+      <div class="card-value" style="font-size:28px" id="dash-phase-num">1</div>
+      <div class="card-unit" id="dash-phase-name">Fondations & Gras</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-label">✅ Score adhérence</div>
+      <div class="card-value" id="dash-adherence">—</div>
+      <div class="card-unit">7 derniers jours</div>
+    </div>
+  </div>
+
+  <div class="grid-2 mb-12">
+    <div class="card">
+      <div class="card-label">📈 Progression phase actuelle</div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span id="prog-phase-start">21 avr</span><span id="prog-phase-end">21 juil</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-lime" id="prog-phase-bar" style="width:0%"></div></div>
+      </div>
+      <div class="flex mt-8"><span class="text-sm text-muted"><span id="dash-days-left">91</span> jours restants dans cette phase</span></div>
+    </div>
+    <div class="card">
+      <div class="card-label">🎯 Progression globale (12 mois)</div>
+      <div class="progress-wrap">
+        <div class="progress-label"><span>21 avr 2026</span><span>23 mars 2027</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-cyan" id="prog-global-bar" style="width:0%"></div></div>
+      </div>
+      <div class="flex mt-8"><span class="text-sm text-muted"><span id="dash-global-pct">0</span>% du programme total</span></div>
+    </div>
+  </div>
+
+  <div class="grid-3 mb-12">
+    <div class="card card-cyan">
+      <div class="card-label">⚡ Calories aujourd'hui</div>
+      <div class="card-value" id="dash-kcal" style="font-size:28px">—</div>
+      <div class="card-unit">objectif : <span id="dash-kcal-target">2400</span> kcal</div>
+    </div>
+    <div class="card card-orange">
+      <div class="card-label">🥩 Protéines aujourd'hui</div>
+      <div class="card-value" id="dash-protein" style="font-size:28px">—</div>
+      <div class="card-unit">objectif : 180 g</div>
+    </div>
+    <div class="card">
+      <div class="card-label">💪 Séance du jour</div>
+      <div id="dash-session" class="text-sm mt-8" style="line-height:1.7">—</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="flex-between mb-8">
+    <div style="font-family:var(--font-d);font-size:18px;font-weight:700;letter-spacing:1px;color:var(--text)">AUJOURD'HUI</div>
+    <div class="font-mono text-muted text-xs" id="dash-today-date"></div>
+  </div>
+  <div id="dash-quick-alerts"></div>
+</div>
+
+<!-- ════════════════════════════════ TIMELINE ════════════════════════════════ -->
+<div id="sec-timeline" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Programme complet</div>
+    <div class="sec-title">📅 TIMELINE</div>
+    <div class="sec-sub">3 phases · 48 semaines · 21 avril 2026 → 23 mars 2027</div>
+  </div>
+  <div class="timeline">
+    <div class="tl-item active" id="tl1">
+      <div class="tl-phase">PHASE 1 — FONDATIONS</div>
+      <div class="tl-dates">21 AVRIL 2026 → 21 JUILLET 2026 · 13 SEMAINES</div>
+      <div class="tl-desc">Perte de gras prioritaire (déficit 400 kcal), construction de la base aérobie (zone 2), correction posturale intensive, apprentissage des patterns de mouvement. Accent mis sur le haut du corps pour corriger le déséquilibre.</div>
+      <div class="tl-tags"><span class="tag active">🔥 Déficit 400 kcal</span><span class="tag active">💙 Zone 2 cardio</span><span class="tag active">🧘 Posture prioritaire</span><span class="tag active">💪 Haut du corps ×3/sem</span><span class="tag active">📉 −5 à −7 kg de gras estimé</span></div>
+      <div class="progress-wrap mt-8">
+        <div class="progress-label"><span>Progression</span><span id="p1-pct">0%</span></div>
+        <div class="progress-bar"><div class="progress-fill pf-lime" id="p1-bar" style="width:0%"></div></div>
+      </div>
+    </div>
+    <div class="tl-item" id="tl2">
+      <div class="tl-phase">PHASE 2 — RECOMPOSITION</div>
+      <div class="tl-dates">22 JUILLET 2026 → 22 NOVEMBRE 2026 · 18 SEMAINES</div>
+      <div class="tl-desc">Léger déficit ou maintenance selon le feedback. Prise de muscle haut du corps (volume augmenté), cardio progressif vers intervalles courts, consolidation posture. Équilibrage haut/bas du corps.</div>
+      <div class="tl-tags"><span class="tag">−200 kcal ou maintenance</span><span class="tag">⚡ Intervalles cardio</span><span class="tag">💪 Volume ↑ haut du corps</span><span class="tag">🔺 V-shape visible</span><span class="tag">🧘 Posture stabilisée</span></div>
+    </div>
+    <div class="tl-item" id="tl3">
+      <div class="tl-phase">PHASE 3 — FINITION</div>
+      <div class="tl-dates">23 NOVEMBRE 2026 → 23 MARS 2027 · 17 SEMAINES</div>
+      <div class="tl-desc">Finition esthétique (léger déficit si nécessaire), maintien des performances cardio, consolidation de la posture, peak physique. Abdos visibles, épaules larges, dos épais, taille fine.</div>
+      <div class="tl-tags"><span class="tag">🔥 Abdos visibles</span><span class="tag">⚽ Niveau footballeur</span><span class="tag">⚖️ 83 kg sec</span><span class="tag">🧘 Posture solide</span></div>
+    </div>
+  </div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:17px;font-weight:700;letter-spacing:1px;margin-bottom:12px">🎯 OBJECTIFS PAR PHASE</div>
+  <div class="grid-3">
+    <div class="card card-lime"><div class="card-label">Phase 1</div><div class="card-value" style="font-size:36px">~76</div><div class="card-unit">kg · perte gras prioritaire</div></div>
+    <div class="card"><div class="card-label">Phase 2</div><div class="card-value" style="font-size:36px">~78</div><div class="card-unit">kg · retour masse maigre</div></div>
+    <div class="card card-green"><div class="card-label">Phase 3 · Final</div><div class="card-value" style="font-size:36px">83</div><div class="card-unit">kg sec · physique objectif</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ NUTRITION ════════════════════════════════ -->
+<div id="sec-nutrition" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Plan alimentaire</div>
+    <div class="sec-title">🍽️ NUTRITION</div>
+    <div class="sec-sub">Plan calculé · 83 kg · skinny fat → 83 kg sec</div>
+  </div>
+  <div class="tabs">
+    <div class="tab active" onclick="nutriTab('phase')">Plan par phase</div>
+    <div class="tab" onclick="nutriTab('meals')">Répartition repas</div>
+    <div class="tab" onclick="nutriTab('adjust')">Ajustements</div>
+  </div>
+  <div id="nutri-phase">
+    <div class="grid-3 mb-12">
+      <div class="card card-lime"><div class="card-label">Maintien estimé</div><div class="card-value">2820</div><div class="card-unit">kcal · base calcul</div></div>
+      <div class="card card-orange"><div class="card-label">Phase 1 · Déficit</div><div class="card-value">2400</div><div class="card-unit">kcal/j · −420 kcal</div></div>
+      <div class="card"><div class="card-label">Phase 2 · Léger déficit</div><div class="card-value">2600</div><div class="card-unit">kcal/j · −220 kcal</div></div>
+    </div>
+    <div class="card mb-12">
+      <div class="card-label">🏋️ MACROS PHASE 1 · JOUR D'ENTRAÎNEMENT</div>
+      <div class="macro-row"><div class="macro-name bold">🥩 Protéines</div><div class="macro-bar"><div class="macro-fill mf-p" style="width:75%"></div></div><div class="macro-val">180g · 720 kcal</div></div>
+      <div class="macro-row"><div class="macro-name bold">🌾 Glucides</div><div class="macro-bar"><div class="macro-fill mf-c" style="width:60%"></div></div><div class="macro-val">230g · 920 kcal</div></div>
+      <div class="macro-row"><div class="macro-name bold">🫒 Lipides</div><div class="macro-bar"><div class="macro-fill mf-f" style="width:40%"></div></div><div class="macro-val">84g · 756 kcal</div></div>
+    </div>
+    <div class="card">
+      <div class="card-label">😴 MACROS PHASE 1 · JOUR DE REPOS</div>
+      <div class="macro-row"><div class="macro-name bold">🥩 Protéines</div><div class="macro-bar"><div class="macro-fill mf-p" style="width:75%"></div></div><div class="macro-val">180g · 720 kcal</div></div>
+      <div class="macro-row"><div class="macro-name bold">🌾 Glucides</div><div class="macro-bar"><div class="macro-fill mf-c" style="width:45%"></div></div><div class="macro-val">170g · 680 kcal</div></div>
+      <div class="macro-row"><div class="macro-name bold">🫒 Lipides</div><div class="macro-bar"><div class="macro-fill mf-f" style="width:44%"></div></div><div class="macro-val">89g · 801 kcal</div></div>
+    </div>
+  </div>
+  <div id="nutri-meals" style="display:none">
+    <div class="grid-2">
+      <div class="card"><div class="card-label">🌅 REPAS 1 · RÉVEIL (7h–8h)</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)">🥚 3–4 œufs entiers + 2 blancs<br>🌾 80g flocons d'avoine<br>🫐 150g fruits rouges<br>☕ Café noir<br><span class="text-muted text-xs">~550 kcal · 40g protéines</span></div></div>
+      <div class="card"><div class="card-label">⚡ REPAS 2 · PRÉ-ENTRAÎNEMENT (11h)</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)">🍌 1 banane<br>🥜 30g beurre de cacahuète<br>🥛 200g skyr / fromage blanc<br><span class="text-muted text-xs">~350 kcal · 25g protéines</span></div></div>
+      <div class="card"><div class="card-label">🍚 REPAS 3 · DÉJEUNER POST-SÉANCE (13h)</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)">🍗 200g poulet / thon / saumon<br>🍚 120g riz cru (cuit = 300g)<br>🥦 250g légumes<br>🫒 15ml huile d'olive<br><span class="text-muted text-xs">~700 kcal · 55g protéines</span></div></div>
+      <div class="card"><div class="card-label">🥛 REPAS 4 · GOÛTER (17h)</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)">🥛 400g fromage blanc 0%<br>🫐 100g fruits<br>🌰 20g amandes<br><span class="text-muted text-xs">~300 kcal · 30g protéines</span></div></div>
+      <div class="card"><div class="card-label">🌙 REPAS 5 · DÎNER (20h)</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)">🥩 200g viande blanche ou poisson<br>🥕 300g légumes variés<br>🥚 2 œufs si besoin<br>🫒 10ml huile<br><span class="text-muted text-xs">~500 kcal · 45g protéines</span></div></div>
+      <div class="card card-lime"><div class="card-label">📊 TOTAL JOURNALIER</div><div class="mt-8 text-sm" style="line-height:1.9">⚡ ~2400 kcal (entraînement)<br>🥩 ~195g protéines<br>🌾 ~230g glucides<br>🫒 ~80g lipides<br>💧 3L eau minimum</div></div>
+    </div>
+  </div>
+  <div id="nutri-adjust" style="display:none">
+    <div class="alert alert-info mb-16"><div class="alert-title">🧠 Logique d'ajustement automatique</div>L'application surveille tes entrées hebdomadaires et ajuste les recommandations selon ta progression réelle.</div>
+    <div class="grid-2">
+      <div class="card"><div class="card-label">📉 SI PERTE &gt; 1 KG/SEMAINE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Augmente de 100–150 kcal<br>→ Priorité glucides (50g+)<br>→ Maintien protéines à 180g</div></div>
+      <div class="card"><div class="card-label">📈 SI PERTE &lt; 0.3 KG/SEMAINE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Vérifie tracking précision<br>→ Réduit glucides de 30g<br>→ Ajoute 15–20 min cardio zone 2</div></div>
+      <div class="card"><div class="card-label">🥩 SI PROTÉINES INSUFFISANTES</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Alerte si &lt;150g/j<br>→ Priorité skyr, œufs, poulet<br>→ Option whey 30g si nécessaire</div></div>
+      <div class="card"><div class="card-label">🏃 JOURS CARDIO INTENSE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ +100–150 kcal glucides<br>→ 400ml eau supplémentaire<br>→ Sodium : ajouter légèrement</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ TRACKER ════════════════════════════════ -->
+<div id="sec-tracker" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Saisie rétroactive</div>
+    <div class="sec-title">📓 JOURNAL</div>
+    <div class="sec-sub">Modifiable · N'importe quel jour</div>
+  </div>
+  <div class="card mb-16" style="border-color:rgba(168,255,62,.15)">
+    <div class="card-label" style="margin-bottom:12px">📅 SÉLECTION DE LA DATE</div>
+    <div class="flex flex-wrap" style="gap:8px;align-items:flex-end">
+      <div class="form-group" style="flex:1;min-width:160px">
+        <label>Date à remplir / modifier</label>
+        <input type="date" id="tracker-date-input" onchange="onTrackerDateChange()">
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="setTrackerDate(0)">Aujourd'hui</button>
+      <button class="btn btn-secondary btn-sm" onclick="setTrackerDate(-1)">Hier</button>
+      <button class="btn btn-secondary btn-sm" onclick="setTrackerDate(-2)">Avant-hier</button>
+      <button class="btn btn-cyan btn-sm" onclick="loadEntryForDate()">🔍 Charger</button>
+    </div>
+    <div id="date-status" class="mt-8"></div>
+  </div>
+  <div class="today-hero">
+    <div class="today-date" id="tracker-date-display"></div>
+    <div class="today-day" id="tracker-dayname"></div>
+  </div>
+  <div class="grid-2 mb-12">
+    <div class="card">
+      <div class="card-label" style="margin-bottom:14px">🍽️ NUTRITION DU JOUR</div>
+      <div class="form-grid">
+        <div class="form-group"><label>⚖️ Poids (kg)</label><input type="number" id="t-weight" step="0.1" placeholder="83.0"></div>
+        <div class="form-group"><label>⚡ Calories (kcal)</label><input type="number" id="t-kcal" placeholder="2400"></div>
+        <div class="form-group"><label>🥩 Protéines (g)</label><input type="number" id="t-protein" placeholder="180"></div>
+        <div class="form-group"><label>🌾 Glucides (g)</label><input type="number" id="t-carbs" placeholder="230"></div>
+        <div class="form-group"><label>🫒 Lipides (g)</label><input type="number" id="t-fat" placeholder="84"></div>
+        <div class="form-group"><label>💧 Eau (L)</label><input type="number" id="t-water" step="0.1" placeholder="3.0"></div>
+        <div class="form-group"><label>👟 Pas</label><input type="number" id="t-steps" placeholder="8000"></div>
+        <div class="form-group"><label>😴 Sommeil (h)</label><input type="number" id="t-sleep" step="0.5" placeholder="7.5"></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label" style="margin-bottom:14px">💬 SENSATIONS & SÉANCES</div>
+      <div class="form-grid">
+        <div class="form-group"><label>⚡ Énergie (1–10)</label><select id="t-energy"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+        <div class="form-group"><label>🍽️ Faim (1–10)</label><select id="t-hunger"><option value="">—</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select></div>
+        <div class="form-group"><label>🏃 Cardio fait ?</label><select id="t-cardio"><option value="">—</option><option value="yes">✅ Oui</option><option value="partial">⚡ Partiel</option><option value="no">❌ Non</option><option value="sick">🤒 Malade</option></select></div>
+        <div class="form-group"><label>🏋️ Muscu faite ?</label><select id="t-muscu"><option value="">—</option><option value="yes">✅ Oui</option><option value="partial">⚡ Partiel</option><option value="no">❌ Non</option><option value="sick">🤒 Malade</option></select></div>
+        <div class="form-group"><label>🧘 Posture faite ?</label><select id="t-posture"><option value="">—</option><option value="yes">✅ Oui</option><option value="no">❌ Non</option></select></div>
+        <div class="form-group"><label>😊 Humeur</label><select id="t-mood"><option value="">—</option><option>🔥 Motivé</option><option>😐 Neutre</option><option>😴 Fatigué</option><option>😤 Stressé</option><option>🤒 Malade</option></select></div>
+      </div>
+      <div class="form-group mt-8"><label>📝 Notes du jour</label><textarea id="t-notes" placeholder="Ce qui s'est passé ce jour-là..."></textarea></div>
+    </div>
+  </div>
+  <div id="tracker-alerts" class="mb-12"></div>
+  <div class="flex flex-wrap" style="gap:8px">
+    <button class="btn btn-primary" onclick="saveTrackerEntry()">💾 Sauvegarder / Mettre à jour</button>
+    <button class="btn btn-secondary" onclick="setTrackerDate(0);loadEntryForDate()">🔄 Aujourd'hui</button>
+    <button class="btn btn-secondary" onclick="showSection('charts')">📊 Voir stats</button>
+  </div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">📋 HISTORIQUE RÉCENT</div>
+  <div id="tracker-history"></div>
+</div>
+
+<!-- ════════════════════════════════ CARDIO ════════════════════════════════ -->
+<div id="sec-cardio" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Programme progressif</div>
+    <div class="sec-title">🏃 CARDIO</div>
+    <div class="sec-sub">Débutant → Niveau footballeur amateur · Intégré à la muscu</div>
+  </div>
+  <div class="alert alert-lime mb-16"><div class="alert-title">📖 Comment lire cette section</div>Planning hebdomadaire exact, type d'effort, durée, intensité. Progresse automatiquement semaine par semaine. <strong>Conçu pour ne pas nuire à ta musculation.</strong></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:10px">📅 PLANNING HEBDOMADAIRE</div>
+  <div class="weekly-sched">
+    <div class="sched-day sd-muscu"><div class="sched-day-name">DIM</div><div class="sched-day-type">💪 Muscu<br><span class="text-xs text-muted">Dos+Bi</span></div></div>
+    <div class="sched-day sd-cardio"><div class="sched-day-name">LUN</div><div class="sched-day-type" style="color:var(--gold-bright)">🏃 Zone 2<br><span class="text-xs text-muted">20–45min</span></div></div>
+    <div class="sched-day sd-muscu"><div class="sched-day-name">MAR</div><div class="sched-day-type">💪 Muscu<br><span class="text-xs text-muted">Dos+Bi</span></div></div>
+    <div class="sched-day sd-cardio"><div class="sched-day-name">MER</div><div class="sched-day-type" style="color:var(--gold-bright)">🏃 Cardio<br><span class="text-xs text-muted">Zone2/Int</span></div></div>
+    <div class="sched-day sd-muscu"><div class="sched-day-name">JEU</div><div class="sched-day-type">💪 Muscu<br><span class="text-xs text-muted">Épaules</span></div></div>
+    <div class="sched-day sd-muscu"><div class="sched-day-name">VEN</div><div class="sched-day-type">💪 Muscu<br><span class="text-xs text-muted">Poitrine</span></div></div>
+    <div class="sched-day sd-cardio"><div class="sched-day-name">SAM</div><div class="sched-day-type" style="color:var(--gold-bright)">🏃 Cardio<br><span class="text-xs text-muted">Long/Int</span></div></div>
+  </div>
+  <div class="alert alert-info mb-16"><div class="alert-title">🔗 Intégration muscu / cardio</div>Le cardio se fait <strong>les jours sans musculation</strong> (Lun, Mer, Sam). Volume cardio volontairement bas au début pour ne pas empiéter sur la construction musculaire.</div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:10px">🧠 COMPRENDRE LE CARDIO</div>
+  <div class="grid-2 mb-16">
+    <div class="concept-card"><div class="concept-icon">💙</div><div><div class="concept-title">Zone 2 — Base aérobie</div><div class="concept-desc">Effort très léger où tu peux parler sans être essoufflé. FC 125–145 bpm. Brûle les graisses directement. Améliore le cœur sans fatiguer les muscles. <strong>Point de départ obligatoire.</strong></div></div></div>
+    <div class="concept-card"><div class="concept-icon">🟠</div><div><div class="concept-title">Intervalles — Intensité répétée</div><div class="concept-desc">Alternance effort intense / récupération. 1 min sprint, 2 min marche. Développe la capacité à encaisser des efforts durs répétés. Booste le métabolisme 24h après.</div></div></div>
+    <div class="concept-card"><div class="concept-icon">🔴</div><div><div class="concept-title">Tempo — Seuil anaérobie</div><div class="concept-desc">Allure soutenue inconfortable mais tenable 15–20 min. FC 160–170. Repousse ton "mur" physiologique. Développe l'endurance de course. <strong>Introduit en semaine 5.</strong></div></div></div>
+    <div class="concept-card"><div class="concept-icon">🟢</div><div><div class="concept-title">Récupération active</div><div class="concept-desc">Marche rapide, vélo léger, mobilité. Accélère la récupération musculaire. <strong>Important les jours de fatigue</strong> — remplace toujours une séance dure si énergie ≤4/10.</div></div></div>
+  </div>
+  <div class="alert alert-warn mb-12"><div class="alert-title">⚠️ Pourquoi on ne commence pas fort ?</div>Débutant + déficit calorique = cardio trop intense cannibalise le muscle. La zone 2 brûle les graisses sans toucher au muscle. La progression par étapes évite blessures et abandon.</div>
+  <div class="alert alert-info mb-16"><div class="alert-title">😴 Si tu es trop fatigué</div>Énergie ≤4/10 → 20 min de marche rapide Zone 2 seulement. Sommeil &lt;6h → pas d'intervalles. Douleurs musculaires intenses → récupération active. La progression reprend à la séance suivante.</div>
+  <div class="grid-3 mb-12">
+    <div class="card card-cyan"><div class="card-label">📅 Semaine actuelle</div><div class="card-value" id="cardio-week">1</div><div class="card-unit" id="cardio-phase-label">Base aérobie</div></div>
+    <div class="card"><div class="card-label">🏃 Séance du jour</div><div id="cardio-today-type" class="card-value mt-8" style="font-size:18px">—</div></div>
+    <div class="card card-lime"><div class="card-label">📈 Progression cardio</div><div class="card-value" id="cardio-pct">0%</div><div class="card-unit">vers niveau cible</div></div>
+  </div>
+  <div class="card mb-16"><div class="card-label">⚡ SÉANCE DÉTAILLÉE D'AUJOURD'HUI</div><div id="cardio-session-content" class="mt-12"></div></div>
+  <div style="font-family:var(--font-d);font-size:18px;font-weight:700;letter-spacing:1px;margin-bottom:12px">📋 PLAN COMPLET</div>
+  <div class="tabs">
+    <div class="tab active" onclick="cardioTab('p1')">Phase 1 (sem 1–13)</div>
+    <div class="tab" onclick="cardioTab('p2')">Phase 2 (sem 14–31)</div>
+    <div class="tab" onclick="cardioTab('p3')">Phase 3 (sem 32–48)</div>
+  </div>
+  <div id="cardio-p1"><div id="cardio-plan-display"></div></div>
+  <div id="cardio-p2" style="display:none">
+    <div class="alert alert-info mb-12"><div class="alert-title">Phase 2 · Semaines 14–31 · PROGRESSION</div>Tu cours 40–45 min sans t'arrêter. Introduction intervalles et tempo long. Objectif : tenir des efforts intenses plus longtemps, développer la vitesse répétée.</div>
+    <div class="grid-2">
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🔵 Lundi — Zone 2</span><span class="cardio-type-badge type-base">Aérobie</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">35–45 min · FC 130–145 · Récup active<br><span style="color:var(--gold-bright);font-size:10.5px">But : maintenir la base aérobie</span></div></div>
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🟡 Mercredi — Tempo</span><span class="cardio-type-badge type-tempo">Tempo</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">5 min + 20 min @ FC 160–170 + 5 min retour<br><span style="color:var(--accent-bright);font-size:10.5px">But : repousser seuil anaérobie</span></div></div>
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🔴 Samedi — Intervalles</span><span class="cardio-type-badge type-interval">Intervalles</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">8–10× (1 min sprint / 2 min marche) · 30–35 min<br><span style="color:var(--orange);font-size:10.5px">But : vitesse répétée, niveau footballeur</span></div></div>
+    </div>
+  </div>
+  <div id="cardio-p3" style="display:none">
+    <div class="alert alert-success mb-12"><div class="alert-title">⚽ Phase 3 · Semaines 32–48 · NIVEAU CIBLE ATTEINT</div>Long run 50–60 min. Intervalles 30/30 (VMA). Fartlek libre. Tu es au niveau d'un footballeur amateur bien entraîné.</div>
+    <div class="grid-2">
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🔵 Lundi — Long run</span><span class="cardio-type-badge type-base">Endurance</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">50–60 min Zone 2–3 · FC max 150<br><span style="color:var(--success);font-size:10.5px">But : fondation aérobie athlétique</span></div></div>
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🔴 Mercredi — 30/30</span><span class="cardio-type-badge type-interval">VMA</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">10–15× (30s @ 90% / 30s récup)<br><span style="color:var(--orange);font-size:10.5px">But : puissance aérobie maximale</span></div></div>
+      <div class="cardio-day"><div class="cardio-day-header"><span class="cardio-day-name">🟡 Samedi — Fartlek</span><span class="cardio-type-badge type-tempo">Fartlek</span></div><div class="text-sm" style="color:var(--text2);line-height:1.6">40 min variations libres · fun et complet<br><span style="color:var(--accent-bright);font-size:10.5px">But : plaisir + développement global</span></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ WORKOUT ════════════════════════════════ -->
+<div id="sec-workout" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">4 jours / semaine</div>
+    <div class="sec-title">🏋️ MUSCULATION</div>
+    <div class="sec-sub">Priorité haut du corps · Correction déséquilibre</div>
+  </div>
+  <div class="alert alert-info mb-16"><div class="alert-title">🎯 Stratégie déséquilibre</div>Bas du corps plus développé → volume bas du corps réduit à 1×/sem maintenance. Haut du corps travaillé 3–4×/sem. Accent épaules, dos, bras pour le V-shape.</div>
+  <div id="workout-cards"></div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">📊 VOLUME HEBDOMADAIRE</div>
+  <div class="grid-4">
+    <div class="card card-lime"><div class="card-label">Dos</div><div class="card-value" style="font-size:28px">20–24</div><div class="card-unit">séries / semaine</div></div>
+    <div class="card card-lime"><div class="card-label">Épaules</div><div class="card-value" style="font-size:28px">18–22</div><div class="card-unit">séries / semaine</div></div>
+    <div class="card"><div class="card-label">Bras</div><div class="card-value" style="font-size:28px">14–18</div><div class="card-unit">séries / semaine</div></div>
+    <div class="card"><div class="card-label" style="color:var(--text3)">Bas du corps</div><div class="card-value text-muted" style="font-size:28px">8–10</div><div class="card-unit">séries / semaine · maintenance</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ POSTURE ════════════════════════════════ -->
+<div id="sec-posture" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Correction quotidienne</div>
+    <div class="sec-title">🧘 POSTURE</div>
+    <div class="sec-sub">Hyperlordose · Épaules enroulées · Forward head · Scoliose légère</div>
+  </div>
+  <div class="alert alert-warn mb-16"><div class="alert-title">⚠️ Protocole quotidien obligatoire</div>15–20 min/jour. Le matin ou entre les séances. Essentiel pour corriger les déséquilibres en 3–6 mois.</div>
+  <div class="flex-between mb-16">
+    <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px">✅ CHECKLIST QUOTIDIENNE</div>
+    <button class="btn btn-secondary btn-sm" onclick="resetPosture()">🔄 Reset</button>
+  </div>
+  <div id="posture-checklist"></div>
+  <div class="progress-wrap mt-16">
+    <div class="progress-label"><span>Routine complétée</span><span id="posture-pct">0%</span></div>
+    <div class="progress-bar"><div class="progress-fill pf-green" id="posture-bar" style="width:0%"></div></div>
+  </div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">📋 DÉTAIL DES EXERCICES</div>
+  <div class="grid-2">
+    <div class="card"><div class="card-label">🔻 HYPERLORDOSE · Bassin</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)"><strong>Dead bug</strong> — 3×10 · gainage anti-extension<br><strong>Planche</strong> — 3×30–60s · core stable<br><strong>Hip flexors stretch</strong> — 2×45s par côté<br><strong>Posterior pelvic tilt</strong> — 3×15 · conscience bassin</div></div>
+    <div class="card"><div class="card-label">🔄 ÉPAULES ENROULÉES</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)"><strong>Band pull-apart</strong> — 3×20 · rétraction active<br><strong>Face pull</strong> — 3×15 · deltoïde postérieur<br><strong>Wall slide</strong> — 2×10 · mobilité scapulaire<br><strong>Chest stretch</strong> — 2×45s · ouverture pectoraux</div></div>
+    <div class="card"><div class="card-label">↗️ FORWARD HEAD · Cou</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)"><strong>Chin tuck</strong> — 3×10 · repositionnement actif<br><strong>Neck retraction wall</strong> — 2×15<br><strong>SCM stretch</strong> — 2×30s par côté<br><strong>Foam roller thoracique</strong> — 2 min</div></div>
+    <div class="card"><div class="card-label">🌀 MOBILITÉ THORACIQUE</div><div class="mt-8 text-sm" style="line-height:1.9;color:var(--text2)"><strong>Thoracic rotation</strong> — 2×10 par côté<br><strong>Cat-cow</strong> — 2×10 · fluidité colonne<br><strong>Open book</strong> — 2×8 par côté<br><strong>Foam roller extension</strong> — 5 min</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ MEASURES ════════════════════════════════ -->
+<div id="sec-measures" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Suivi corps</div>
+    <div class="sec-title">📏 MESURES</div>
+    <div class="sec-sub">Anthropométrique · Évolution · Comparaisons</div>
+  </div>
+  <div class="card mb-16">
+    <div class="card-label" style="margin-bottom:14px">➕ AJOUTER UNE MESURE</div>
+    <div class="measure-input-row">
+      <div class="form-group"><label>📅 Date</label><input type="date" id="m-date"></div>
+      <div class="form-group"><label>⚖️ Poids (kg)</label><input type="number" id="m-weight" step="0.1"></div>
+      <div class="form-group"><label>Taille (cm)</label><input type="number" id="m-waist" step="0.5"></div>
+      <div class="form-group"><label>💪 Bras (cm)</label><input type="number" id="m-arm" step="0.5"></div>
+      <div class="form-group"><label>🦺 Épaules (cm)</label><input type="number" id="m-shoulders" step="0.5"></div>
+      <div class="form-group"><label>Poitrine (cm)</label><input type="number" id="m-chest" step="0.5"></div>
+    </div>
+    <button class="btn btn-primary mt-16" onclick="saveMeasure()">💾 Sauvegarder mesure</button>
+  </div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">📋 HISTORIQUE</div>
+  <div id="measures-history"></div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:8px">📈 ÉVOLUTION POIDS</div>
+  <div class="card"><div class="chart-wrap"><canvas id="chartWeight"></canvas></div></div>
+</div>
+
+<!-- ════════════════════════════════ CHARTS ════════════════════════════════ -->
+<div id="sec-charts" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Données réelles</div>
+    <div class="sec-title">📊 STATISTIQUES</div>
+    <div class="sec-sub">Graphiques de progression</div>
+  </div>
+  <div class="grid-2 mb-12">
+    <div class="card"><div class="card-label">⚡ CALORIES — 7 JOURS</div><div class="chart-wrap"><canvas id="chartKcal"></canvas></div></div>
+    <div class="card"><div class="card-label">🥩 PROTÉINES — 7 JOURS</div><div class="chart-wrap"><canvas id="chartProtein"></canvas></div></div>
+  </div>
+  <div class="grid-2">
+    <div class="card"><div class="card-label">⚖️ POIDS — 30 JOURS</div><div class="chart-wrap"><canvas id="chartWeight2"></canvas></div></div>
+    <div class="card"><div class="card-label">✅ ADHÉRENCE HEBDOMADAIRE</div><div class="chart-wrap"><canvas id="chartAdherence"></canvas></div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="flex flex-wrap" style="gap:8px">
+    <button class="btn btn-secondary" onclick="exportCSV()">📄 Export CSV</button>
+    <button class="btn btn-secondary" onclick="exportJSON()">📦 Export JSON</button>
+    <button class="btn btn-danger" onclick="resetAll()">🗑️ Réinitialiser</button>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ INTEL ════════════════════════════════ -->
+<div id="sec-intel" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Coaching automatique</div>
+    <div class="sec-title">🧠 ANALYSE IA</div>
+    <div class="sec-sub">Adaptation en temps réel · Basé sur tes données</div>
+  </div>
+  <div id="intel-alerts"></div>
+  <div class="divider"></div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">🛡️ SITUATIONS GÉRÉES</div>
+  <div class="grid-2">
+    <div class="card"><div class="card-label">❌ SÉANCE RATÉE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Progression non effacée<br>→ Option reprogrammer ou passer<br>→ Pas de surcharge les jours suivants</div></div>
+    <div class="card"><div class="card-label">🤒 MALADIE DÉTECTÉE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Mode récupération activé<br>→ Cardio et muscu suspendus<br>→ Priorité : repos, eau, retour progressif</div></div>
+    <div class="card"><div class="card-label">🥩 PROTÉINES INSUFFISANTES</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Alerte si &lt;150g/j<br>→ Correction proposée<br>→ Distinction ponctuel / chronique</div></div>
+    <div class="card"><div class="card-label">⚡ FATIGUE ÉLEVÉE</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Séance allégée suggérée<br>→ Pas d'augmentation de charge<br>→ Récupération active proposée</div></div>
+    <div class="card"><div class="card-label">🚨 DÉFICIT EXCESSIF</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Alerte si &lt;1800 kcal plusieurs jours<br>→ Risque catabolisme signalé<br>→ Ajustement immédiat conseillé</div></div>
+    <div class="card"><div class="card-label">🔥 BONNE RÉGULARITÉ</div><div class="mt-8 text-sm" style="line-height:1.8;color:var(--text2)">→ Détection 7+ jours consécutifs<br>→ Augmentation progressive charge<br>→ Motivation et félicitations</div></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ ALIMENTS ════════════════════════════════ -->
+<div id="sec-aliments" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Base de données</div>
+    <div class="sec-title">🥗 ALIMENTS</div>
+    <div class="sec-sub">Valeurs pour 100g · Cru vs Cuit · Aide au pesage</div>
+  </div>
+  <div class="alert alert-lime mb-16"><div class="alert-title">⚖️ Règle d'or : toujours peser CRU</div>100g riz cru → ~300g cuit (×3). 100g pâtes cru → ~250g cuites (×2.5). <strong>Peser avant cuisson</strong> = tracking fiable. Si tu pèses cuit : divise par 2.5 (pâtes) ou 3 (riz).</div>
+  <div class="grid-2 mb-16">
+    <div class="card"><div class="card-label">🔄 CONVERSIONS RAPIDES</div><div class="mt-8 text-sm" style="line-height:2;color:var(--text2)">🍚 100g riz CRU = ~300g cuit<br>🍝 100g pâtes CRU = ~250g cuites<br>🥔 100g pomme de terre CRU = ~90g cuite<br>🍗 100g poulet CRU = ~75g cuit<br>🐟 100g saumon CRU = ~80g cuit</div></div>
+    <div class="card"><div class="card-label">❌ ERREURS À ÉVITER</div><div class="mt-8 text-sm" style="line-height:2;color:var(--text2)">❌ Peser pâtes après cuisson sans corriger<br>❌ Oublier huile cuisson (~120 kcal/c.à.s)<br>❌ Ne pas peser sauces et condiments<br>❌ Confondre protéines et kcal sur étiquette<br>✅ Toujours peser dans le même état (cru)</div></div>
+  </div>
+  <input type="text" class="food-search" id="food-search" placeholder="🔍 Rechercher un aliment (riz, poulet, œuf...)" oninput="filterFoods()">
+  <div class="card" style="overflow-x:auto;margin-bottom:16px">
+    <table class="food-table">
+      <thead><tr><th>Aliment</th><th>État</th><th>Kcal</th><th>Prot.</th><th>Gluc.</th><th>Lip.</th><th>Note pratique</th></tr></thead>
+      <tbody id="food-tbody"></tbody>
+    </table>
+  </div>
+  <div style="font-family:var(--font-d);font-size:16px;font-weight:700;letter-spacing:1px;margin-bottom:12px">🧮 AIDE AU PESAGE</div>
+  <div class="card">
+    <div class="card-label" style="margin-bottom:14px">COMBIEN PESER POUR ATTEINDRE MES BESOINS ?</div>
+    <div class="form-grid">
+      <div class="form-group"><label>Aliment</label><select id="calc-food" onchange="calcQuantity()"><option value="">Choisir...</option></select></div>
+      <div class="form-group"><label>Protéines souhaitées (g)</label><input type="number" id="calc-protein" placeholder="50" oninput="calcQuantity()"></div>
+    </div>
+    <div id="calc-result" class="mt-12 text-sm" style="color:var(--text2)"></div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════ COACH IA ════════════════════════════════ -->
+<div id="sec-coach" class="section">
+  <div class="sec-header">
+    <div class="sec-eyebrow">Assistant personnel</div>
+    <div class="sec-title">🤖 COACH IA</div>
+    <div class="sec-sub">Spécialisé pour ton profil · Nutrition · Sport · Récupération</div>
+  </div>
+
+  <div class="coach-header">
+    <div class="coach-avatar">🤖</div>
+    <div>
+      <div class="coach-name">COACH ANIS·OS</div>
+      <div class="coach-status"><span class="coach-online-dot"></span> En ligne · Connaît ton profil complet · Lit tes données du journal</div>
+    </div>
+  </div>
+
+  <div class="chat-context-bar" id="coach-context-bar">
+    <div class="ctx-item"><div class="ctx-label">Phase</div><div class="ctx-value lime" id="ctx-phase">P1</div></div>
+    <div class="ctx-item"><div class="ctx-label">Kcal obj.</div><div class="ctx-value cyan" id="ctx-kcal">2400</div></div>
+    <div class="ctx-item"><div class="ctx-label">Prot. obj.</div><div class="ctx-value orange" id="ctx-prot">180g</div></div>
+    <div class="ctx-item"><div class="ctx-label">Kcal auj.</div><div class="ctx-value" id="ctx-kcal-today">—</div></div>
+  </div>
+
+  <div class="chat-suggestions">
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🍚 Combien de riz peser ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🥩 Protéines restantes aujourd'hui ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🍽️ Propose-moi un dîner</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">📊 Macros restantes ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">😴 J'ai mal dormi, je fais quoi ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🏃 J'ai raté ma séance</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🥛 Collation riche en protéines ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">🍝 Pâtes : combien peser ?</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">💧 J'ai pas faim ce soir</span>
+    <span class="chat-suggestion" onclick="sendSuggestion(this)">⚠️ Mon déficit est trop agressif ?</span>
+  </div>
+
+  <div class="chat-wrap" id="chat-messages">
+    <div class="chat-msg bot">
+      <div class="bot-label">🤖 Coach ANIS·OS</div>
+      Salut Anis 👋 Je connais ton profil complet : <strong>83 kg, 1m83, skinny fat → 83 kg sec</strong>, objectif V-shape avec épaules, dos et bras prioritaires. Cardio débutant en progression vers niveau footballeur amateur.<br><br>🎯 Tes macros actuelles : <strong>2400 kcal · 180g prot · 230g glucides · 84g lipides</strong><br><br>Pose-moi n'importe quelle question sur la nutrition, le cardio, la récup ou les séances !
+    </div>
+  </div>
+
+  <div class="chat-input-row">
+    <input type="text" class="chat-input" id="chat-input" placeholder="Ex: combien de grammes de riz pour mon déjeuner ?" onkeydown="if(event.key==='Enter') sendChat()">
+    <button class="btn btn-primary" onclick="sendChat()">Envoyer ↵</button>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ════════════════════════════════
+// CONFIG
+// ════════════════════════════════
+const START_DATE=new Date('2026-04-21');
+const PHASE1_END=new Date('2026-07-21');
+const PHASE2_END=new Date('2026-11-22');
+const PHASE3_END=new Date('2027-03-23');
+const MACROS={p1:{kcal:2400,protein:180,carbs:230,fat:84},p2:{kcal:2600,protein:185,carbs:255,fat:88},p3:{kcal:2500,protein:185,carbs:240,fat:85}};
+
+function getData(k,d=[]){try{return JSON.parse(localStorage.getItem('anis_'+k))||d;}catch{return d;}}
+function setData(k,v){localStorage.setItem('anis_'+k,JSON.stringify(v));}
+
+// ════════════════════════════════
+// NAV
+// ════════════════════════════════
+function showSection(id){
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  const idx=['dashboard','timeline','nutrition','tracker','cardio','workout','posture','measures','charts','intel','aliments','coach'];
+  document.querySelectorAll('.nav-btn')[idx.indexOf(id)+1]?.classList.add('active');
+  if(id==='dashboard') updateDashboard();
+  if(id==='charts') renderCharts();
+  if(id==='intel') renderIntel();
+  if(id==='tracker') initTracker();
+  if(id==='measures') renderMeasures();
+  if(id==='cardio') renderCardioSection();
+  if(id==='workout') renderWorkout();
+  if(id==='posture') renderPosture();
+  if(id==='aliments') renderFoodTable();
+  if(id==='coach') updateCoachContext();
+}
+
+// ════════════════════════════════
+// DATE HELPERS
+// ════════════════════════════════
+function daysBetween(a,b){return Math.round((b-a)/(1000*60*60*24));}
+function getCurrentPhase(){const n=new Date();if(n<PHASE1_END)return 1;if(n<PHASE2_END)return 2;return 3;}
+function getMacros(){const p=getCurrentPhase();return p===1?MACROS.p1:p===2?MACROS.p2:MACROS.p3;}
+function todayStr(){return new Date().toISOString().slice(0,10);}
+function fmt(d){return d.toLocaleDateString('fr-FR',{day:'2-digit',month:'short',year:'numeric'});}
+function dayName(d){return d.toLocaleDateString('fr-FR',{weekday:'long'});}
+function dateStrToDisplay(s){const d=new Date(s+'T12:00:00');return fmt(d).toUpperCase();}
+function dateStrToDayName(s){const d=new Date(s+'T12:00:00');return dayName(d);}
+
+// ════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════
+function updateDashboard(){
+  const now=new Date();
+  const daysActive=Math.max(0,daysBetween(START_DATE,now));
+  const phase=getCurrentPhase();
+  const macros=getMacros();
+  document.getElementById('dash-days').textContent=daysActive;
+  document.getElementById('dash-phase-num').textContent=phase;
+  document.getElementById('dash-today-date').textContent=fmt(now)+' · '+dayName(now);
+  const pN=['','Fondations & Gras','Recomposition','Finition Esthétique'];
+  const pL=['','PHASE 1 — FONDATIONS','PHASE 2 — RECOMPOSITION','PHASE 3 — FINITION'];
+  document.getElementById('dash-phase-name').textContent=pN[phase];
+  document.getElementById('dash-phase-label').textContent=pL[phase];
+  const phaseStart=phase===1?START_DATE:phase===2?PHASE1_END:PHASE2_END;
+  const phaseEnd=phase===1?PHASE1_END:phase===2?PHASE2_END:PHASE3_END;
+  const pPct=Math.min(100,Math.max(0,daysBetween(phaseStart,now)/daysBetween(phaseStart,phaseEnd)*100));
+  document.getElementById('prog-phase-bar').style.width=pPct+'%';
+  document.getElementById('dash-days-left').textContent=Math.max(0,daysBetween(now,phaseEnd));
+  const psL=['21 avr','22 juil','23 nov'],peL=['21 juil','22 nov','23 mars'];
+  document.getElementById('prog-phase-start').textContent=psL[phase-1];
+  document.getElementById('prog-phase-end').textContent=peL[phase-1];
+  const totalDays=daysBetween(START_DATE,PHASE3_END);
+  const gPct=Math.min(100,Math.max(0,(daysActive/totalDays)*100)).toFixed(1);
+  document.getElementById('prog-global-bar').style.width=gPct+'%';
+  document.getElementById('dash-global-pct').textContent=gPct;
+  document.getElementById('p1-pct').textContent=phase>1?'100%':pPct.toFixed(0)+'%';
+  document.getElementById('p1-bar').style.width=(phase>1?100:pPct)+'%';
+  if(phase>=2) document.getElementById('tl2').classList.add('active');
+  if(phase>=3) document.getElementById('tl3').classList.add('active');
+  if(phase>1){document.getElementById('tl1').classList.remove('active');document.getElementById('tl1').classList.add('done');}
+  const entries=getData('entries',[]);
+  const today=entries.find(e=>e.date===todayStr());
+  document.getElementById('dash-kcal').textContent=today?.kcal||'—';
+  document.getElementById('dash-protein').textContent=today?.protein?today.protein+'g':'—';
+  document.getElementById('dash-kcal-target').textContent=macros.kcal;
+  document.getElementById('dash-session').innerHTML=getTodaySession();
+  const last7=entries.filter(e=>daysBetween(new Date(e.date),now)<=7);
+  if(last7.length>0){let sc=0;last7.forEach(e=>{if(e.cardio==='yes')sc++;if(e.muscu==='yes')sc++;if(e.posture==='yes')sc++;if(e.protein>=150)sc++;});document.getElementById('dash-adherence').textContent=Math.round(sc/last7.length/4*100)+'%';}
+  renderQuickAlerts();
+}
+function getTodaySession(){
+  const day=new Date().getDay();
+  const s={2:`<span class="text-lime bold">💪 MARDI</span> — Muscu · Dos + Biceps + Épaules arrière`,4:`<span class="text-lime bold">💪 JEUDI</span> — Muscu · Épaules + Trapèzes + Bras`,5:`<span class="text-lime bold">💪 VENDREDI</span> — Muscu · Poitrine + Triceps + Core`,0:`<span class="text-lime bold">💪 DIMANCHE</span> — Muscu · Dos épais + Biceps + Bas maintenance`};
+  const c={1:`<span class="text-cyan">🏃 LUNDI</span> — Cardio Zone 2 · 20–35 min · FC 125–145`,3:`<span class="text-cyan">🏃 MERCREDI</span> — Cardio Zone 2 / Intervalles selon semaine`,6:`<span class="text-cyan">🏃 SAMEDI</span> — Cardio Long / Intervalles selon semaine`};
+  if(s[day]) return s[day];
+  if(c[day]) return c[day];
+  return `<span class="text-muted">😴 Repos actif · Posture + mobilité · Récupération</span>`;
+}
+function renderQuickAlerts(){
+  const entries=getData('entries',[]);const now=new Date();const today=entries.find(e=>e.date===todayStr());const alerts=[];
+  if(!today) alerts.push({type:'info',title:'📝 Journal vide aujourd\'hui',msg:'Enregistre ton alimentation et tes séances pour activer le suivi intelligent.'});
+  else{
+    if(today.protein&&today.protein<150) alerts.push({type:'warn',title:'⚠️ Protéines basses',msg:`${today.protein}g enregistrés. Il manque ${180-today.protein}g. Ajoute skyr, œufs ou poulet.`});
+    if(today.kcal&&today.kcal<1800) alerts.push({type:'danger',title:'🚨 Déficit trop important',msg:`${today.kcal} kcal seulement. Un déficit aussi important nuit à la récup et au muscle.`});
+    if(today.sleep&&today.sleep<6) alerts.push({type:'warn',title:'😴 Sommeil insuffisant',msg:'Moins de 6h. Évite d\'augmenter la charge. Récupération active recommandée.'});
+    if(today.energy&&parseInt(today.energy)<=3) alerts.push({type:'warn',title:'⚡ Énergie faible',msg:'Séance allégée conseillée. Pas d\'intervalles ni haute intensité aujourd\'hui.'});
+    if(today.mood==='🤒 Malade') alerts.push({type:'danger',title:'🤒 Mode récupération activé',msg:'Priorité : repos, hydratation, protéines légères. Suspends cardio et muscu.'});
+  }
+  const last5=[0,1,2,3,4].map(i=>{const d=new Date(now);d.setDate(d.getDate()-i);return d.toISOString().slice(0,10);});
+  if(last5.filter(d=>{const e=entries.find(x=>x.date===d);return e&&e.muscu==='no';}).length>=3) alerts.push({type:'warn',title:'📉 3+ séances muscu manquées',msg:'Reprise progressive. Commence par 70% du volume habituel.'});
+  const el=document.getElementById('dash-quick-alerts');
+  if(el) el.innerHTML=alerts.length?alerts.map(a=>`<div class="alert alert-${a.type}"><div class="alert-title">${a.title}</div>${a.msg}</div>`).join(''):`<div class="alert alert-success"><div class="alert-title">✅ Tout semble en ordre</div>Continue sur ta lancée, Anis. Chaque jour compte.</div>`;
+}
+
+// ════════════════════════════════
+// TRACKER RÉTROACTIF
+// ════════════════════════════════
+let currentTrackerDate=todayStr();
+function initTracker(){document.getElementById('tracker-date-input').value=currentTrackerDate;updateTrackerDisplay(currentTrackerDate);loadEntryForDate();renderTrackerHistory();}
+function setTrackerDate(offset){const d=new Date();d.setDate(d.getDate()+offset);currentTrackerDate=d.toISOString().slice(0,10);document.getElementById('tracker-date-input').value=currentTrackerDate;updateTrackerDisplay(currentTrackerDate);loadEntryForDate();}
+function onTrackerDateChange(){currentTrackerDate=document.getElementById('tracker-date-input').value;updateTrackerDisplay(currentTrackerDate);loadEntryForDate();}
+function updateTrackerDisplay(ds){document.getElementById('tracker-date-display').textContent=dateStrToDisplay(ds);document.getElementById('tracker-dayname').textContent=dateStrToDayName(ds);}
+function loadEntryForDate(){
+  const date=document.getElementById('tracker-date-input').value||todayStr();
+  currentTrackerDate=date;updateTrackerDisplay(date);
+  const entries=getData('entries',[]);const existing=entries.find(e=>e.date===date);const isToday=date===todayStr();const statusEl=document.getElementById('date-status');
+  clearTrackerForm();
+  if(existing){fillTrackerForm(existing);statusEl.innerHTML=`<span class="existing-badge">✅ Entrée existante · Mode modification</span>${!isToday?' <span class="retro-badge">📅 Rétroactive</span>':''}`;renderTrackerAlerts(existing);}
+  else{statusEl.innerHTML=`<span class="retro-badge">📝 Nouvelle entrée${!isToday?' rétroactive':''}</span>`;document.getElementById('tracker-alerts').innerHTML='';}
+}
+function clearTrackerForm(){
+  ['t-weight','t-kcal','t-protein','t-carbs','t-fat','t-water','t-steps','t-sleep'].forEach(id=>document.getElementById(id).value='');
+  ['t-energy','t-hunger','t-cardio','t-muscu','t-posture','t-mood'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('t-notes').value='';
+}
+function fillTrackerForm(e){
+  if(e.weight) document.getElementById('t-weight').value=e.weight;
+  if(e.kcal) document.getElementById('t-kcal').value=e.kcal;
+  if(e.protein) document.getElementById('t-protein').value=e.protein;
+  if(e.carbs) document.getElementById('t-carbs').value=e.carbs;
+  if(e.fat) document.getElementById('t-fat').value=e.fat;
+  if(e.water) document.getElementById('t-water').value=e.water;
+  if(e.steps) document.getElementById('t-steps').value=e.steps;
+  if(e.sleep) document.getElementById('t-sleep').value=e.sleep;
+  if(e.energy) document.getElementById('t-energy').value=e.energy;
+  if(e.hunger) document.getElementById('t-hunger').value=e.hunger;
+  if(e.cardio) document.getElementById('t-cardio').value=e.cardio;
+  if(e.muscu) document.getElementById('t-muscu').value=e.muscu;
+  if(e.posture) document.getElementById('t-posture').value=e.posture;
+  if(e.mood) document.getElementById('t-mood').value=e.mood;
+  if(e.notes) document.getElementById('t-notes').value=e.notes;
+}
+function saveTrackerEntry(){
+  const date=currentTrackerDate||todayStr();
+  const entry={date,weight:parseFloat(document.getElementById('t-weight').value)||null,kcal:parseInt(document.getElementById('t-kcal').value)||null,protein:parseInt(document.getElementById('t-protein').value)||null,carbs:parseInt(document.getElementById('t-carbs').value)||null,fat:parseInt(document.getElementById('t-fat').value)||null,water:parseFloat(document.getElementById('t-water').value)||null,steps:parseInt(document.getElementById('t-steps').value)||null,sleep:parseFloat(document.getElementById('t-sleep').value)||null,energy:document.getElementById('t-energy').value,hunger:document.getElementById('t-hunger').value,cardio:document.getElementById('t-cardio').value,muscu:document.getElementById('t-muscu').value,posture:document.getElementById('t-posture').value,mood:document.getElementById('t-mood').value,notes:document.getElementById('t-notes').value};
+  const entries=getData('entries',[]);const idx=entries.findIndex(e=>e.date===date);
+  if(idx>=0) entries[idx]=entry; else entries.push(entry);
+  entries.sort((a,b)=>a.date.localeCompare(b.date));
+  setData('entries',entries);
+  const isRetro=date!==todayStr();
+  toast(isRetro?`📅 Entrée du ${dateStrToDisplay(date)} sauvegardée !`:'✅ Journée sauvegardée !');
+  renderTrackerHistory();renderTrackerAlerts(entry);loadEntryForDate();updateDashboard();
+}
+function renderTrackerAlerts(entry){
+  const alerts=[];
+  if(entry.protein&&entry.protein<150) alerts.push({type:'warn',title:`⚠️ Protéines : ${entry.protein}g / 180g`,msg:`Il manque ${180-entry.protein}g. Ajoute 2 skyr (30g) ou 1 poulet (35g).`});
+  if(entry.kcal&&entry.kcal<1800) alerts.push({type:'danger',title:'🚨 Déficit dangereux',msg:'Moins de 1800 kcal nuit à la muscu. Mange davantage.'});
+  if(entry.kcal&&entry.kcal>3000) alerts.push({type:'warn',title:'⚠️ Surplus important',msg:'Plus de 3000 kcal en phase déficit. Vérifie tes portions.'});
+  if(entry.sleep&&entry.sleep<6) alerts.push({type:'warn',title:'😴 Sommeil insuffisant',msg:'Essaie de dormir 7–8h. Récupération musculaire se fait la nuit.'});
+  if(entry.mood==='🤒 Malade') alerts.push({type:'danger',title:'🤒 Mode maladie',msg:'Arrête muscu et cardio. Repos total, hydratation ×1.5. Reprise dans 48–72h.'});
+  document.getElementById('tracker-alerts').innerHTML=alerts.map(a=>`<div class="alert alert-${a.type}"><div class="alert-title">${a.title}</div>${a.msg}</div>`).join('');
+}
+function renderTrackerHistory(){
+  const entries=getData('entries',[]);
+  if(!entries.length){document.getElementById('tracker-history').innerHTML='<div class="text-muted text-sm">Aucune entrée pour le moment.</div>';return;}
+  const last10=[...entries].reverse().slice(0,10);
+  document.getElementById('tracker-history').innerHTML=last10.map(e=>`
+    <div class="card mb-8" style="padding:12px;cursor:pointer;transition:.15s" onclick="loadEntryByDate('${e.date}')" onmouseover="this.style.borderColor='rgba(168,255,62,.2)'" onmouseout="this.style.borderColor=''">
+      <div class="flex-between mb-8">
+        <span class="font-mono text-xs text-lime">${e.date}</span>
+        <div class="flex" style="gap:6px"><span class="text-xs text-muted">${e.mood||''}</span><span class="text-xs" style="color:var(--gold-bright)">✎ modifier</span></div>
+      </div>
+      <div class="flex flex-wrap" style="gap:10px;font-size:11.5px">
+        ${e.weight?`<span>⚖️ <b>${e.weight}kg</b></span>`:''}${e.kcal?`<span>⚡ <b>${e.kcal}kcal</b></span>`:''}${e.protein?`<span>🥩 <b>${e.protein}g</b></span>`:''}${e.sleep?`<span>😴 <b>${e.sleep}h</b></span>`:''}
+        ${e.cardio?`<span>${e.cardio==='yes'?'✅':e.cardio==='partial'?'⚡':'❌'} Cardio</span>`:''}${e.muscu?`<span>${e.muscu==='yes'?'✅':e.muscu==='partial'?'⚡':'❌'} Muscu</span>`:''}
+      </div>
+      ${e.notes?`<div class="text-xs text-muted mt-8" style="font-style:italic">"${e.notes.slice(0,80)}${e.notes.length>80?'...':''}"</div>`:''}
+    </div>`).join('');
+}
+function loadEntryByDate(ds){currentTrackerDate=ds;document.getElementById('tracker-date-input').value=ds;updateTrackerDisplay(ds);loadEntryForDate();window.scrollTo(0,0);}
+
+// ════════════════════════════════
+// CARDIO
+// ════════════════════════════════
+const CARDIO_PLAN_P1=[
+  {week:1,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'20 min',int:'Marche rapide / très léger jogging · FC 120–135',goal:'Habituer le cœur en douceur',diff:'⭐'},{day:'Mercredi',type:'base',label:'Zone 2',dur:'20 min',int:'Même allure — focus respiration nasale',goal:'Construire la base aérobie',diff:'⭐'},{day:'Samedi',type:'active',label:'Récup active',dur:'15 min',int:'Marche + étirements dynamiques',goal:'Mobilité et flux sanguin',diff:'☆'}]},
+  {week:2,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'25 min',int:'Jogging très lent / run-walk · FC 125–140',goal:'Volume aérobie croissant',diff:'⭐'},{day:'Mercredi',type:'base',label:'Zone 2',dur:'25 min',int:'Maintien zone 2 · respiration contrôlée',goal:'Efficacité cardiaque',diff:'⭐'},{day:'Samedi',type:'interval',label:'Intro intervalles',dur:'20 min',int:'6× (1 min jogging / 1 min marche)',goal:'Initiation aux changements d\'allure',diff:'⭐⭐'}]},
+  {week:3,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'28 min',int:'FC 130–145 · jogging continu si possible',goal:'Endurance de base',diff:'⭐'},{day:'Mercredi',type:'base',label:'Zone 2',dur:'28 min',int:'Jogging lent · conversation possible',goal:'Efficacité cardiaque',diff:'⭐'},{day:'Samedi',type:'interval',label:'Intervalles',dur:'22 min',int:'8× (1 min run / 1 min marche)',goal:'Capacité d\'effort répété',diff:'⭐⭐'}]},
+  {week:4,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'30 min',int:'Jogging lent continu · FC 130–145',goal:'30 min continu première fois',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles',dur:'24 min',int:'8× (1.5 min run / 1 min marche)',goal:'Durée effort augmentée',diff:'⭐⭐'},{day:'Samedi',type:'base',label:'Long lent',dur:'35 min',int:'FC max 140 · allure confortable',goal:'Volume hebdo croissant',diff:'⭐⭐'}]},
+  {week:5,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'32 min',int:'Jogging continu · focus foulée',goal:'Consolidation 30+ min',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles',dur:'25 min',int:'6× (2 min run / 1 min marche)',goal:'Durée effort plus longue',diff:'⭐⭐'},{day:'Samedi',type:'tempo',label:'Tempo court',dur:'20 min',int:'10 min @ FC 160 · inconfort contrôlé',goal:'Premier stimulus tempo',diff:'⭐⭐⭐'}]},
+  {week:6,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'35 min',int:'FC 130–145 · jogging lent',goal:'Endurance prolongée',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles',dur:'28 min',int:'8× (2 min run / 1 min marche)',goal:'Volume intervalle augmenté',diff:'⭐⭐'},{day:'Samedi',type:'base',label:'Long lent',dur:'40 min',int:'FC max 145 · pas de pause',goal:'Endurance continue 40 min',diff:'⭐⭐'}]},
+  {week:7,days:[{day:'Lundi',type:'base',label:'Zone 2 légère',dur:'30 min',int:'FC 125–135',goal:'Semaine de décharge',diff:'⭐'},{day:'Mercredi',type:'base',label:'Zone 2',dur:'25 min',int:'Même allure',goal:'Décharge semaine 7',diff:'⭐'},{day:'Samedi',type:'active',label:'Récup active',dur:'20 min',int:'Marche / vélo léger',goal:'Récupération physiologique',diff:'☆'}]},
+  {week:8,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'38 min',int:'Jogging · FC 130–145',goal:'Reprise après décharge',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles intensifs',dur:'30 min',int:'6× (3 min run / 1 min marche)',goal:'Effort prolongé répété',diff:'⭐⭐⭐'},{day:'Samedi',type:'tempo',label:'Tempo',dur:'25 min',int:'15 min @ FC 160–165',goal:'Endurance seuil',diff:'⭐⭐⭐'}]},
+  {week:9,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'40 min',int:'FC 130–145 · jogging lent',goal:'40 min continu',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles',dur:'30 min',int:'10× (2 min / 1 min)',goal:'Volume répété élevé',diff:'⭐⭐⭐'},{day:'Samedi',type:'base',label:'Long lent',dur:'45 min',int:'FC max 145',goal:'45 min continu',diff:'⭐⭐⭐'}]},
+  {week:10,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'40 min',int:'Jogging · focus cadence 170–180 pas/min',goal:'Technique foulée',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles rapides',dur:'28 min',int:'8× (1 min rapide / 2 min récup)',goal:'Vitesse et VMA initiale',diff:'⭐⭐⭐'},{day:'Samedi',type:'tempo',label:'Tempo long',dur:'30 min',int:'20 min @ FC 160–170',goal:'Seuil anaérobie repoussé',diff:'⭐⭐⭐'}]},
+  {week:11,days:[{day:'Lundi',type:'base',label:'Zone 2',dur:'42 min',int:'FC 130–145',goal:'Endurance base',diff:'⭐⭐'},{day:'Mercredi',type:'interval',label:'Intervalles',dur:'32 min',int:'10× (2 min / 1 min)',goal:'Capacité d\'enchaînement',diff:'⭐⭐⭐'},{day:'Samedi',type:'base',label:'Long lent',dur:'48 min',int:'FC max 145 · continu',goal:'Record perso endurance',diff:'⭐⭐⭐'}]},
+  {week:12,days:[{day:'Lundi',type:'base',label:'Zone 2 allégée',dur:'28 min',int:'FC 125–135',goal:'Pré-décharge',diff:'⭐'},{day:'Mercredi',type:'base',label:'Zone 2',dur:'22 min',int:'Très léger',goal:'Récupération',diff:'⭐'},{day:'Samedi',type:'active',label:'Récup active',dur:'15 min',int:'Marche ou vélo',goal:'Décharge pré-phase 2',diff:'☆'}]},
+  {week:13,days:[{day:'Lundi',type:'base',label:'Bilan Phase 1',dur:'45 min',int:'FC 130–145 · jogging continu',goal:'Test endurance fin de phase',diff:'⭐⭐⭐'},{day:'Mercredi',type:'interval',label:'Test intervalles',dur:'30 min',int:'6× (3 min / 1 min)',goal:'Bilan progression',diff:'⭐⭐⭐'},{day:'Samedi',type:'base',label:'Zone 2 finale',dur:'40 min',int:'Jogging lent · clôture phase 1',goal:'Célèbre le chemin parcouru !',diff:'⭐⭐'}]},
+];
+function getCurrentWeek(){const now=new Date();const days=daysBetween(START_DATE,now);return Math.max(1,Math.min(48,Math.floor(days/7)+1));}
+function renderCardioSection(){
+  const week=getCurrentWeek();
+  document.getElementById('cardio-week').textContent=week;
+  document.getElementById('cardio-pct').textContent=Math.round(week/48*100)+'%';
+  const phase=getCurrentPhase();
+  const pL=['','Base aérobie (sem 1–13)','Progression intervalles (sem 14–31)','Niveau avancé (sem 32–48)'];
+  document.getElementById('cardio-phase-label').textContent=pL[phase];
+  const day=new Date().getDay();const dm={1:'Lundi',3:'Mercredi',6:'Samedi'};const tdn=dm[day];
+  const wd=CARDIO_PLAN_P1[Math.min(week-1,CARDIO_PLAN_P1.length-1)];
+  const ts=wd&&tdn?wd.days.find(d=>d.day===tdn):null;
+  const typeC={base:'type-base',interval:'type-interval',tempo:'type-tempo',active:'type-active',rest:'type-rest'};
+  if(ts){
+    document.getElementById('cardio-today-type').textContent=ts.label;
+    document.getElementById('cardio-session-content').innerHTML=`
+      <div class="grid-3" style="margin-bottom:14px">
+        <div><div class="card-label">TYPE</div><div class="mt-8 font-mono text-sm">${ts.label}</div></div>
+        <div><div class="card-label">DURÉE</div><div class="mt-8 font-mono text-sm">${ts.dur}</div></div>
+        <div><div class="card-label">DIFFICULTÉ</div><div class="mt-8 text-sm">${ts.diff}</div></div>
+      </div>
+      <div class="card-label">⚡ INTENSITÉ</div><div class="mt-8 text-sm text-2">${ts.int}</div>
+      <div class="card-label mt-12">🎯 OBJECTIF PHYSIOLOGIQUE</div><div class="mt-8 text-sm text-lime">${ts.goal}</div>
+      <div class="divider"></div>
+      <div class="text-xs text-muted">💡 Si énergie ≤4/10 → remplace par 20 min marche rapide Zone 2.</div>`;
+  } else if([2,4,5,0].includes(day)){
+    document.getElementById('cardio-today-type').textContent='Muscu 💪';
+    document.getElementById('cardio-session-content').innerHTML=`<div class="text-sm text-2">Journée musculation. Pas de cardio. <span class="text-lime">→ Routine posture 15 min après séance recommandée.</span></div>`;
+  } else {
+    document.getElementById('cardio-today-type').textContent='Repos 😴';
+    document.getElementById('cardio-session-content').innerHTML=`<div class="text-sm text-muted">Repos. Récupère, mange bien, dors suffisamment.</div>`;
+  }
+  const tC={base:'type-base',interval:'type-interval',tempo:'type-tempo',active:'type-active',rest:'type-rest'};
+  document.getElementById('cardio-plan-display').innerHTML=CARDIO_PLAN_P1.map(w=>`
+    <div class="card mb-8" style="${w.week===week?'border-color:rgba(168,255,62,.25);background:rgba(168,255,62,.02)':''}">
+      <div class="flex-between mb-10">
+        <div class="flex" style="gap:8px"><span class="font-mono text-xs text-lime">SEM ${w.week}</span>${w.week===week?'<span style="color:var(--accent-bright);font-size:9px;font-weight:800;letter-spacing:1px">← CETTE SEMAINE</span>':''}${w.week<week?'<span style="color:var(--success);font-size:9px;font-weight:700">✓ TERMINÉE</span>':''}</div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">
+        ${w.days.map(d=>`<div class="cardio-day" style="margin:0;padding:9px"><div class="cardio-day-header" style="margin-bottom:5px"><span class="cardio-day-name" style="font-size:11px">${d.day}</span><span class="cardio-type-badge ${tC[d.type]||'type-rest'}" style="font-size:9px;padding:2px 6px">${d.label}</span></div><div class="text-xs text-muted">${d.dur} · ${d.diff}</div><div class="text-xs text-cyan mt-8" style="color:var(--gold-bright);font-size:9.5px">${d.goal}</div></div>`).join('')}
+      </div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════
+// WORKOUT
+// ════════════════════════════════
+const WORKOUTS=[
+  {day:'MARDI',icon:'🔵',focus:'DOS LARGE + BICEPS + DELTOÏDES POSTÉRIEURS',muscles:'Grand dorsal · Rhomboïdes · Biceps · Deltoïde postérieur',priority:'Haut du corps — priorité absolue',exercises:[{name:'Tractions (assistées si besoin)',sets:'4×6–10',note:'Focus squeeze haut du dos'},{name:'Rowing barre ou haltère',sets:'4×10–12',note:'Coudes près corps · dos plat'},{name:'Tirage poulie haute prise large',sets:'3×12',note:'Amplitude complète'},{name:'Face pull',sets:'4×15',note:'Deltoïde post + correction posture'},{name:'Curl barre ou haltères',sets:'3×12',note:'Supination en haut'},{name:'Curl marteau',sets:'3×12',note:'Brachial + brachioradial'},{name:'Reverse fly (oiseau)',sets:'3×15',note:'Épaules arrière · léger'}]},
+  {day:'JEUDI',icon:'🟡',focus:'ÉPAULES + TRAPÈZES + BRAS',muscles:'Deltoïde antérieur · latéral · Trapèzes · Triceps · Biceps',priority:'V-shape et largeur épaules',exercises:[{name:'Développé militaire haltères',sets:'4×10',note:'Contrôle strict · pas d\'arc'},{name:'Élévations latérales',sets:'5×15',note:'Deltoïde latéral · clé du V-shape'},{name:'Shrugs barre ou haltères',sets:'3×15',note:'Trapèzes · contraction en haut'},{name:'Développé nuque câble',sets:'3×12',note:'Deltoïde postérieur + trapèze'},{name:'Pushdown triceps câble',sets:'4×12',note:'Isolation triceps'},{name:'Dips (lestés si possible)',sets:'3×max',note:'Triceps + pec bas'},{name:'Curl incliné',sets:'3×12',note:'Pic biceps · chef long'}]},
+  {day:'VENDREDI',icon:'🔴',focus:'POITRINE + TRICEPS + CORE',muscles:'Pectoraux · Triceps · Abdominaux · Obliques',priority:'Développement pectoraux + core posture',exercises:[{name:'Développé couché haltères',sets:'4×10',note:'Amplitude totale'},{name:'Écarté poulie haute (fly)',sets:'3×15',note:'Étirement pec en bas'},{name:'Développé incliné haltères',sets:'3×12',note:'Pec haut + avant épaule'},{name:'Dips large prise',sets:'3×max',note:'Pec bas + triceps'},{name:'Extension triceps poulie haute',sets:'4×12',note:'Contraction complète'},{name:'Planche dynamique',sets:'3×45s',note:'Core anti-extension · posture'},{name:'Dead bug',sets:'3×10',note:'Hyperlordose correction'}]},
+  {day:'DIMANCHE',icon:'🟢',focus:'DOS ÉPAIS + BICEPS + BAS DU CORPS (MAINTENANCE)',muscles:'Érecteurs · Trapèzes moyens · Ischios · Quadriceps · Biceps',priority:'Épaisseur dos + maintenance bas',exercises:[{name:'Soulevé de terre roumain',sets:'3×10',note:'Ischios + dos bas + posture'},{name:'Rowing machine ou barre',sets:'4×10',note:'Dos épais · omoplates ensemble'},{name:'Tirage poitrine prise serrée',sets:'3×12',note:'Grand dorsal bas'},{name:'Leg press (maintenance)',sets:'2×15',note:'Bas du corps léger'},{name:'Curl ischio-jambiers',sets:'2×12',note:'Maintenance'},{name:'Curl concentré',sets:'3×12',note:'Pic biceps'},{name:'Gainage latéral',sets:'3×30s',note:'Obliques + scoliose'}]},
+];
+function renderWorkout(){
+  document.getElementById('workout-cards').innerHTML=WORKOUTS.map(w=>`
+    <div class="workout-card">
+      <div class="workout-header"><div><div class="workout-day">${w.icon} ${w.day}</div><div class="workout-muscles">${w.muscles}</div></div><span class="workout-focus">${w.priority}</span></div>
+      <div class="card-label mb-8">${w.focus}</div>
+      <ul class="exercise-list">${w.exercises.map(e=>`<li><span><b>${e.name}</b><br><span class="text-xs text-muted">${e.note}</span></span><span class="ex-sets">${e.sets}</span></li>`).join('')}</ul>
+    </div>`).join('');
+}
+
+// ════════════════════════════════
+// POSTURE
+// ════════════════════════════════
+const POSTURE_ITEMS=[
+  {id:'p1',name:'Chin tuck',desc:'3×10 · Repositionnement tête · Forward head correction',dur:'3 min'},
+  {id:'p2',name:'Thoracic extension foam roller',desc:'Vertèbre par vertèbre · 5 min · Mobilité thoracique',dur:'5 min'},
+  {id:'p3',name:'Band pull-apart',desc:'3×20 · Rétraction scapulaire · Épaules enroulées',dur:'3 min'},
+  {id:'p4',name:'Wall slide',desc:'2×10 · Mobilité scapulaire · Activation serratus',dur:'2 min'},
+  {id:'p5',name:'Hip flexors stretch',desc:'2×45s par côté · Hyperlordose correction',dur:'3 min'},
+  {id:'p6',name:'Dead bug',desc:'3×10 · Gainage anti-extension · Bassin neutre',dur:'3 min'},
+  {id:'p7',name:'Open book rotation',desc:'2×8 par côté · Mobilité thoracique + scoliose',dur:'3 min'},
+  {id:'p8',name:'Chest stretch',desc:'2×45s · Ouverture pectoraux · Épaules ouvertes',dur:'2 min'},
+];
+function renderPosture(){
+  const done=getData('posture_today',[]);
+  document.getElementById('posture-checklist').innerHTML=POSTURE_ITEMS.map(item=>`
+    <div class="check-item ${done.includes(item.id)?'done':''}" onclick="togglePosture('${item.id}')">
+      <div class="check-box">${done.includes(item.id)?'✓':''}</div>
+      <div><div class="check-text"><b>${item.name}</b> <span class="text-muted text-xs">${item.dur}</span></div><div class="check-desc">${item.desc}</div></div>
+    </div>`).join('');
+  const pct=Math.round(done.length/POSTURE_ITEMS.length*100);
+  document.getElementById('posture-pct').textContent=pct+'%';
+  document.getElementById('posture-bar').style.width=pct+'%';
+}
+function togglePosture(id){let d=getData('posture_today',[]);d.includes(id)?d=d.filter(x=>x!==id):d.push(id);setData('posture_today',d);renderPosture();}
+function resetPosture(){setData('posture_today',[]);renderPosture();toast('🔄 Checklist réinitialisée');}
+
+// ════════════════════════════════
+// MEASURES
+// ════════════════════════════════
+function saveMeasure(){
+  const m={date:document.getElementById('m-date').value||todayStr(),weight:parseFloat(document.getElementById('m-weight').value)||null,waist:parseFloat(document.getElementById('m-waist').value)||null,arm:parseFloat(document.getElementById('m-arm').value)||null,shoulders:parseFloat(document.getElementById('m-shoulders').value)||null,chest:parseFloat(document.getElementById('m-chest').value)||null};
+  const ms=getData('measures',[]);ms.push(m);setData('measures',ms);toast('📏 Mesure sauvegardée !');renderMeasures();
+}
+function renderMeasures(){
+  const ms=getData('measures',[]);
+  if(!ms.length){document.getElementById('measures-history').innerHTML='<div class="text-muted text-sm">Aucune mesure enregistrée.</div>';return;}
+  document.getElementById('measures-history').innerHTML=[...ms].reverse().slice(0,10).map(m=>`
+    <div class="card mb-8" style="padding:12px"><div class="font-mono text-xs text-lime mb-8">${m.date}</div>
+      <div class="flex flex-wrap" style="gap:12px;font-size:11.5px">
+        ${m.weight?`<span>⚖️ <b>${m.weight}kg</b></span>`:''}${m.waist?`<span>📏 <b>${m.waist}cm</b></span>`:''}${m.arm?`<span>💪 <b>${m.arm}cm</b></span>`:''}${m.shoulders?`<span>🦺 <b>${m.shoulders}cm</b></span>`:''}${m.chest?`<span>🫁 <b>${m.chest}cm</b></span>`:''}
+      </div>
+    </div>`).join('');
+  renderWeightChart();
+}
+
+// ════════════════════════════════
+// CHARTS
+// ════════════════════════════════
+let chartI={};
+function destroyChart(id){if(chartI[id]){chartI[id].destroy();delete chartI[id];}}
+const cDef={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,.025)'},ticks:{color:'#5a5a72',font:{size:9.5}}},y:{grid:{color:'rgba(255,255,255,.025)'},ticks:{color:'#5a5a72',font:{size:9.5}}}}};
+function renderCharts(){
+  const entries=getData('entries',[]);const last7=entries.slice(-7);const last30=entries.slice(-30);
+  destroyChart('chartKcal');const kc=document.getElementById('chartKcal');
+  if(kc) chartI['chartKcal']=new Chart(kc,{type:'bar',data:{labels:last7.map(e=>e.date.slice(5)),datasets:[{data:last7.map(e=>e.kcal||0),backgroundColor:'rgba(184,137,42,.25)',borderColor:'#b8892a',borderWidth:1,borderRadius:4}]},options:{...cDef}});
+  destroyChart('chartProtein');const pc=document.getElementById('chartProtein');
+  if(pc) chartI['chartProtein']=new Chart(pc,{type:'bar',data:{labels:last7.map(e=>e.date.slice(5)),datasets:[{data:last7.map(e=>e.protein||0),backgroundColor:'rgba(255,107,43,.25)',borderColor:'#ff6b2b',borderWidth:1,borderRadius:4}]},options:{...cDef}});
+  const wD=last30.filter(e=>e.weight);
+  destroyChart('chartWeight2');const w2=document.getElementById('chartWeight2');
+  if(w2) chartI['chartWeight2']=new Chart(w2,{type:'line',data:{labels:wD.map(e=>e.date.slice(5)),datasets:[{data:wD.map(e=>e.weight),borderColor:'#c0392b',backgroundColor:'rgba(192,57,43,.08)',tension:.3,pointRadius:3,pointBackgroundColor:'#c0392b'}]},options:{...cDef}});
+  const now=new Date();const wS=[];
+  for(let i=0;i<4;i++){const s=new Date(now);s.setDate(s.getDate()-((i+1)*7));const e2=new Date(now);e2.setDate(e2.getDate()-(i*7));const wE=entries.filter(e=>{const d=new Date(e.date);return d>=s&&d<e2;});let sc=0;wE.forEach(e=>{if(e.muscu==='yes')sc++;if(e.cardio==='yes')sc++;});wS.unshift(wE.length?Math.round(sc/wE.length*50):0);}
+  destroyChart('chartAdherence');const ac=document.getElementById('chartAdherence');
+  if(ac) chartI['chartAdherence']=new Chart(ac,{type:'bar',data:{labels:['S-4','S-3','S-2','Cette sem.'],datasets:[{data:wS,backgroundColor:'rgba(192,57,43,.2)',borderColor:'#c0392b',borderWidth:1,borderRadius:4}]},options:{...cDef}});
+}
+function renderWeightChart(){
+  const ms=getData('measures',[]);const wD=ms.filter(m=>m.weight).slice(-20);
+  destroyChart('chartWeight');const ctx=document.getElementById('chartWeight');
+  if(!ctx||!wD.length) return;
+  chartI['chartWeight']=new Chart(ctx,{type:'line',data:{labels:wD.map(m=>m.date.slice(5)),datasets:[{data:wD.map(m=>m.weight),borderColor:'#c0392b',backgroundColor:'rgba(192,57,43,.08)',tension:.3,pointRadius:4,pointBackgroundColor:'#c0392b'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{color:'rgba(255,255,255,.025)'},ticks:{color:'#5a5a72',font:{size:9.5}}},y:{grid:{color:'rgba(255,255,255,.025)'},ticks:{color:'#5a5a72',font:{size:9.5}}}}}});
+}
+
+// ════════════════════════════════
+// INTEL
+// ════════════════════════════════
+function renderIntel(){
+  const entries=getData('entries',[]);const now=new Date();const alerts=[];
+  const last7=entries.filter(e=>daysBetween(new Date(e.date),now)<=7);
+  const last3=entries.filter(e=>daysBetween(new Date(e.date),now)<=3);
+  let streak=0;
+  for(let i=0;i<30;i++){const d=new Date(now);d.setDate(d.getDate()-i);const e=entries.find(x=>x.date===d.toISOString().slice(0,10));if(e&&(e.muscu==='yes'||e.cardio==='yes'))streak++;else if(i>0) break;}
+  if(streak>=7) alerts.push({type:'good',icon:'🔥',title:`Streak de ${streak} jours actifs`,desc:'Excellente régularité. Tu es en train de construire quelque chose de solide. Continue.'});
+  else if(streak<3&&entries.length>0) alerts.push({type:'warn',icon:'⚡',title:'Régularité à renforcer',desc:'Moins de 3 jours actifs récemment. Reprends à 70% du volume. La régularité imparfaite > la perfection sporadique.'});
+  if(last7.length>0){const avg=Math.round(last7.reduce((s,e)=>s+(e.protein||0),0)/last7.length);if(avg<150&&avg>0) alerts.push({type:'warn',icon:'🥩',title:`Protéines moyennes : ${avg}g/j sur 7 jours`,desc:`Objectif 180g. Manque chronique → perte musculaire en déficit. Priorité : skyr, poulet, œufs.`});else if(avg>=170) alerts.push({type:'good',icon:'✅',title:`Protéines bien gérées : ${avg}g/j`,desc:'Bonne moyenne protéique. Continue ainsi.'});}
+  if(last3.length>=2){const avgK=Math.round(last3.reduce((s,e)=>s+(e.kcal||0),0)/last3.length);if(avgK<1800&&avgK>0) alerts.push({type:'danger',icon:'🚨',title:`Déficit excessif : ${avgK} kcal/j (3 jours)`,desc:'Risque de catabolisme musculaire et fatigue. Vise 2000 kcal minimum.'});if(avgK>3000) alerts.push({type:'warn',icon:'⚠️',title:`Surplus détecté : ${avgK} kcal/j`,desc:'En phase déficit, vise 2400 kcal. Vérifie portions et graisses cachées.'});}
+  const vS=last7.filter(e=>e.sleep&&e.sleep>0);const avgSl=vS.length?vS.reduce((s,e)=>s+e.sleep,0)/vS.length:0;
+  if(avgSl>0&&avgSl<6.5) alerts.push({type:'warn',icon:'😴',title:`Sommeil insuffisant : ${avgSl.toFixed(1)}h moyenne`,desc:'Le manque de sommeil réduit la croissance musculaire et augmente le cortisol. Priorité récupération.'});
+  const mM=last7.filter(e=>e.muscu==='no').length,mC=last7.filter(e=>e.cardio==='no').length;
+  if(mM>=3) alerts.push({type:'warn',icon:'💪',title:`${mM} séances muscu manquées`,desc:'Reprends à 70% du volume. Identifie ce qui bloque : horaire, motivation, fatigue ?'});
+  if(mC>=3) alerts.push({type:'warn',icon:'🏃',title:`${mC} séances cardio manquées`,desc:'Même 15 min de marche rapide compte. La progression cardio est cumulative.'});
+  const sick=last7.filter(e=>e.mood==='🤒 Malade').length;
+  if(sick>0) alerts.push({type:'danger',icon:'🤒',title:'Mode maladie détecté',desc:`${sick} jour(s) de maladie récents. Récup complète avant reprise. Reprends à 60% après 72h de repos.`});
+  const gD=last7.filter(e=>e.muscu==='yes'&&e.cardio==='yes'&&e.posture==='yes').length;
+  if(gD>=3) alerts.push({type:'good',icon:'🏆',title:`${gD} jours parfaits cette semaine`,desc:'Muscu + cardio + posture. Exactement ce qu\'il faut. La transformation physique est en marche.'});
+  if(!alerts.length) alerts.push({type:'good',icon:'📊',title:'En attente de données',desc:'Remplis le journal quotidien pour activer l\'analyse. Plus tu rentres de données, plus le coaching est précis.'});
+  document.getElementById('intel-alerts').innerHTML=alerts.map(a=>`<div class="intel-item ${a.type}"><div class="intel-icon">${a.icon}</div><div><div class="intel-title">${a.title}</div><div class="intel-desc">${a.desc}</div></div></div>`).join('');
+}
+
+// ════════════════════════════════
+// NUTRITION TABS
+// ════════════════════════════════
+function nutriTab(id){['phase','meals','adjust'].forEach(t=>{document.getElementById('nutri-'+t).style.display=t===id?'block':'none';document.querySelectorAll('#sec-nutrition .tab')[['phase','meals','adjust'].indexOf(t)]?.classList.toggle('active',t===id);});}
+function cardioTab(id){['p1','p2','p3'].forEach(t=>{document.getElementById('cardio-'+t).style.display=t===id?'block':'none';document.querySelectorAll('#sec-cardio .tab')[['p1','p2','p3'].indexOf(t)]?.classList.toggle('active',t===id);});}
+
+// ════════════════════════════════
+// ALIMENTS
+// ════════════════════════════════
+const FOODS=[
+  {name:'Riz blanc',state:'cru',kcal:356,protein:7,carbs:79,fat:0.6,note:'100g cru = ~300g cuit (×3)'},
+  {name:'Riz blanc cuit',state:'cuit',kcal:130,protein:2.7,carbs:28,fat:0.3,note:'Diviser par 3 pour équivalent cru'},
+  {name:'Pâtes sèches',state:'cru',kcal:354,protein:13,carbs:70,fat:1.5,note:'100g cru = ~250g cuites (×2.5)'},
+  {name:'Pâtes cuites',state:'cuit',kcal:131,protein:5,carbs:27,fat:0.6,note:'Diviser par 2.5 pour équivalent cru'},
+  {name:'Pomme de terre',state:'cru',kcal:79,protein:2,carbs:17,fat:0.1,note:'Légère perte eau à la cuisson'},
+  {name:'Flocons d\'avoine',state:'cru',kcal:367,protein:13,carbs:59,fat:7,note:'80g = 293 kcal · idéal petit-déj'},
+  {name:'Pain complet',state:'—',kcal:247,protein:9,carbs:41,fat:3.4,note:'1 tranche ~35g = ~86 kcal'},
+  {name:'Poulet blanc',state:'cru',kcal:110,protein:23,carbs:0,fat:1.5,note:'Cuit → perd ~25% du poids'},
+  {name:'Poulet blanc cuit',state:'cuit',kcal:165,protein:31,carbs:0,fat:3.6,note:'Peser cru si possible'},
+  {name:'Dinde escalope',state:'cru',kcal:107,protein:22,carbs:0,fat:1.5,note:'Très maigre · excellent ratio prot/kcal'},
+  {name:'Steak haché 5%',state:'cru',kcal:121,protein:21,carbs:0,fat:5,note:'Option économique · bon ratio'},
+  {name:'Steak haché 15%',state:'cru',kcal:218,protein:18,carbs:0,fat:15,note:'Plus de calories · moins optimal en déficit'},
+  {name:'Thon naturel',state:'—',kcal:86,protein:20,carbs:0,fat:0.6,note:'1 boîte 140g = 28g prot · ultra pratique'},
+  {name:'Saumon',state:'cru',kcal:208,protein:20,carbs:0,fat:13,note:'Oméga-3 · cuit perd ~25% poids'},
+  {name:'Œuf entier',state:'—',kcal:143,protein:12.5,carbs:0.6,fat:9.5,note:'1 œuf moyen ~60g = 86 kcal · 7.5g prot'},
+  {name:'Blanc d\'œuf',state:'—',kcal:52,protein:11,carbs:0.7,fat:0.2,note:'1 blanc ~35g = 18 kcal · 4g prot'},
+  {name:'Fromage blanc 0%',state:'—',kcal:42,protein:7.5,carbs:3.5,fat:0.2,note:'400g = 30g prot · idéal déficit'},
+  {name:'Skyr nature',state:'—',kcal:60,protein:11,carbs:4,fat:0.3,note:'200g = 22g prot · meilleur ratio marché'},
+  {name:'Lentilles',state:'cru',kcal:353,protein:25,carbs:56,fat:1.5,note:'Cuites ×2.5 · source végétale complète'},
+  {name:'Lentilles cuites',state:'cuit',kcal:116,protein:9,carbs:20,fat:0.4,note:'Fibres + protéines · rassasiant'},
+  {name:'Pois chiches',state:'cru',kcal:364,protein:19,carbs:57,fat:6,note:'Cuits ×2.5 · polyvalent'},
+  {name:'Pois chiches cuits',state:'cuit',kcal:164,protein:9,carbs:27,fat:2.6,note:'En boîte ou maison'},
+  {name:'Banane',state:'—',kcal:89,protein:1.1,carbs:23,fat:0.3,note:'1 banane ~120g = 107 kcal · pré-séance'},
+  {name:'Huile d\'olive',state:'—',kcal:884,protein:0,carbs:0,fat:100,note:'1 c.à.s = 10ml = ~88 kcal · peser !'},
+  {name:'Beurre de cacahuète',state:'—',kcal:588,protein:25,carbs:20,fat:50,note:'30g = ~176 kcal · 7.5g prot'},
+  {name:'Amandes',state:'—',kcal:576,protein:21,carbs:10,fat:50,note:'20g = ~115 kcal · collation pratique'},
+];
+function renderFoodTable(filter=''){
+  const filtered=FOODS.filter(f=>f.name.toLowerCase().includes(filter.toLowerCase()));
+  const tbody=document.getElementById('food-tbody');
+  if(!tbody) return;
+  tbody.innerHTML=filtered.map(f=>`<tr><td class="food-name">${f.name}</td><td><span class="food-badge ${f.state==='cru'?'badge-cru':f.state==='cuit'?'badge-cuit':''}">${f.state}</span></td><td>${f.kcal}</td><td class="food-protein">${f.protein}g</td><td class="food-carbs">${f.carbs}g</td><td class="food-fat">${f.fat}g</td><td class="text-xs text-muted">${f.note}</td></tr>`).join('');
+  const cs=document.getElementById('calc-food');
+  if(cs&&cs.options.length<=1) FOODS.forEach(f=>{const o=document.createElement('option');o.value=f.protein;o.textContent=f.name+' ('+f.protein+'g prot/100g)';cs.appendChild(o);});
+}
+function filterFoods(){renderFoodTable(document.getElementById('food-search').value);}
+function calcQuantity(){
+  const pp=parseFloat(document.getElementById('calc-food').value),tp=parseFloat(document.getElementById('calc-protein').value),el=document.getElementById('calc-result');
+  if(!pp||!tp){el.innerHTML='';return;}
+  const g=Math.round(tp/pp*100),fn=document.getElementById('calc-food').selectedOptions[0]?.text?.split(' (')[0]||'',food=FOODS.find(f=>f.name===fn),kcal=food?Math.round(food.kcal*g/100):0;
+  el.innerHTML=`<span class="text-lime bold">→ Peser ${g}g</span> de ${fn} pour obtenir ${tp}g de protéines${kcal?` <span class="text-muted">(≈${kcal} kcal)</span>`:''}`;
+}
+
+// ════════════════════════════════
+// COACH IA — MOTEUR COMPLET
+// ════════════════════════════════
+
+// Profil permanent
+const PROFIL={
+  prenom:'Anis',age:21,taille:183,poidsActuel:83,
+  objectif:'83 kg sec, musclé, athlétique, V-shape, abdos visibles',
+  priorites:'épaules larges, dos épais, bras développés, taille fine visuelle',
+  cardioNiveau:'débutant',cardioObjectif:'niveau footballeur amateur bien entraîné',
+  muscuJours:'mardi, jeudi, vendredi, dimanche',
+  posture:['hyperlordose','épaules enroulées','forward head','scoliose légère'],
+  depart:'21 avril 2026'
+};
+
+// Base de connaissances aliments (pour calculs)
+const KB_FOODS={
+  'riz':{state:'cru',kcal:356,prot:7,carbs:79,fat:0.6,ratioCooked:3,name:'riz blanc cru'},
+  'pâtes':{state:'cru',kcal:354,prot:13,carbs:70,fat:1.5,ratioCooked:2.5,name:'pâtes sèches'},
+  'poulet':{state:'cru',kcal:110,prot:23,carbs:0,fat:1.5,ratioCooked:0.75,name:'poulet blanc cru'},
+  'dinde':{state:'cru',kcal:107,prot:22,carbs:0,fat:1.5,name:'dinde crue'},
+  'thon':{state:'—',kcal:86,prot:20,carbs:0,fat:0.6,name:'thon naturel'},
+  'saumon':{state:'cru',kcal:208,prot:20,carbs:0,fat:13,name:'saumon cru'},
+  'oeuf':{state:'—',kcal:143,prot:12.5,carbs:0.6,fat:9.5,name:'œuf entier'},
+  'blanc':{state:'—',kcal:52,prot:11,carbs:0.7,fat:0.2,name:'blanc d\'œuf'},
+  'fromage blanc':{state:'—',kcal:42,prot:7.5,carbs:3.5,fat:0.2,name:'fromage blanc 0%'},
+  'skyr':{state:'—',kcal:60,prot:11,carbs:4,fat:0.3,name:'skyr'},
+  'flocons':{state:'cru',kcal:367,prot:13,carbs:59,fat:7,name:'flocons d\'avoine'},
+  'banane':{state:'—',kcal:89,prot:1.1,carbs:23,fat:0.3,name:'banane'},
+  'amandes':{state:'—',kcal:576,prot:21,carbs:10,fat:50,name:'amandes'},
+  'cacahuète':{state:'—',kcal:588,prot:25,carbs:20,fat:50,name:'beurre de cacahuète'},
+  'huile':{state:'—',kcal:884,prot:0,carbs:0,fat:100,name:'huile d\'olive'},
+  'lentilles':{state:'cru',kcal:353,prot:25,carbs:56,fat:1.5,name:'lentilles crues'},
+  'pois chiches':{state:'cru',kcal:364,prot:19,carbs:57,fat:6,name:'pois chiches crus'},
+};
+
+function getTodayData(){
+  const entries=getData('entries',[]);
+  const today=entries.find(e=>e.date===todayStr());
+  const macros=getMacros();
+  return {today,macros,phase:getCurrentPhase()};
+}
+
+function updateCoachContext(){
+  const {today,macros,phase}=getTodayData();
+  document.getElementById('ctx-phase').textContent='P'+phase;
+  document.getElementById('ctx-kcal').textContent=macros.kcal;
+  document.getElementById('ctx-prot').textContent=macros.protein+'g';
+  document.getElementById('ctx-kcal-today').textContent=today?.kcal?today.kcal+'kcal':'—';
+}
+
+// Détection d'intention
+function detectIntent(m){
+  const checks=[
+    {intent:'riz_peser',patterns:['riz','combien','peser','gramme','quantité','portion'],min:2},
+    {intent:'pates_peser',patterns:['pâtes','pasta','combien','peser','gramme','glucide'],min:2},
+    {intent:'poulet_peser',patterns:['poulet','dinde','viande','combien','gramme','peser','prot'],min:2},
+    {intent:'prot_manquantes',patterns:['protéine','manque','reste','combien','il me','atteindre'],min:2},
+    {intent:'macros_restantes',patterns:['macros','reste','restant','journée','bilan','aujourd'],min:1},
+    {intent:'diner',patterns:['dîner','soir','repas','ce soir','ce dîner','idée repas','quoi manger','mange quoi'],min:2},
+    {intent:'collation',patterns:['collation','snack','grignoter','en-cas','entre','faim','coupe'],min:1},
+    {intent:'avant_seance',patterns:['avant','pré','séance','entraînement','manger avant','pré-entraînement','quoi avant'],min:2},
+    {intent:'apres_seance',patterns:['après','post','séance','entraînement','récup','manger après','post-entraînement'],min:2},
+    {intent:'pas_faim',patterns:['faim','pas faim','mange pas','appétit','pas envie','force'],min:1},
+    {intent:'trop_faim',patterns:['faim','très faim','toujours faim','tout le temps','encore faim'],min:2},
+    {intent:'deficit_agressif',patterns:['déficit','trop','agressif','excessif','élevé','peu mangé','bas','1800','1500','2000'],min:2},
+    {intent:'surplus',patterns:['trop mangé','surplus','excès','dépasse','trop kcal'],min:1},
+    {intent:'seance_ratee',patterns:['raté','rate','manqué','séance','entraînement','pas pu','pas fait'],min:2},
+    {intent:'malade',patterns:['malade','maladie','grippe','rhume','fiévreux','courbatures','souffrant'],min:1},
+    {intent:'fatigue_cardio',patterns:['fatigué','épuisé','cardio','pas d\'énergie','crevé'],min:2},
+    {intent:'mauvais_sommeil',patterns:['dormi','sommeil','mal dormi','peu dormi','nuit','fatigue','insomnies'],min:2},
+    {intent:'reprise',patterns:['reprendre','reprise','interruption','arrêté','pause','longtemps','semaine'],min:2},
+    {intent:'hydratation',patterns:['eau','hydratation','boire','soif','litres'],min:1},
+    {intent:'recomposition',patterns:['recompo','recomposition','muscle','gras','skinny fat','maigre','sec'],min:1},
+    {intent:'cru_cuit',patterns:['cru','cuit','cuisson','peser','différence','conversion'],min:2},
+    {intent:'calorie_repas',patterns:['calories','kcal','calculer','total','repas','j\'ai mangé','mangé'],min:2},
+    {intent:'calories_objectif',patterns:['objectif','cible','calories','kcal','combien','dois','journée'],min:2},
+    {intent:'epaules_dos',patterns:['épaules','dos','large','v-shape','vshape','haut','muscles','visuel'],min:2},
+  ];
+  for(const c of checks){
+    let count=0;for(const p of c.patterns) if(m.includes(p)) count++;
+    if(count>=c.min) return c.intent;
+  }
+  return 'unknown';
+}
+
+// Calculateur aliment
+function calcFoodAmount(foodKey,targetProt){
+  const f=KB_FOODS[foodKey];if(!f) return null;
+  const grams=Math.round(targetProt/f.prot*100);
+  const kcal=Math.round(f.kcal*grams/100);
+  return {grams,kcal,food:f};
+}
+
+// Moteur de réponse principal
+function processCoachMessage(msg){
+  const {today,macros,phase}=getTodayData();
+  const m=msg.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+  const intent=detectIntent(m);
+
+  // === PESAGE RIZ ===
+  if(intent==='riz_peser'){
+    // Tenter d'extraire un nombre de glucides depuis le message
+    const carbMatch=m.match(/(\d+)\s*(g|gramme)/);
+    if(carbMatch){
+      const targetCarbs=parseInt(carbMatch[1]);
+      const grams=Math.round(targetCarbs/79*100);
+      const kcal=Math.round(356*grams/100);
+      return `🍚 <strong>Riz pour ${targetCarbs}g de glucides :</strong><br>→ Peser <strong>${grams}g de riz CRU</strong><br>→ Cuit, ça donnera ~${Math.round(grams*3)}g<br>→ Soit ~${kcal} kcal + ~${Math.round(7*grams/100)}g de protéines<br><br>💡 Toujours peser <strong>cru avant cuisson</strong>.`;
+    }
+    // Contexte du jour
+    if(today&&today.carbs){
+      const remainC=macros.carbs-today.carbs;
+      if(remainC<=0) return `🍚 Tu as déjà atteint tes <strong>${macros.carbs}g de glucides</strong> cibles. Si tu veux quand même du riz, ajoute <strong>max 80–100g crus</strong> et ajuste le reste.`;
+      const grams=Math.round(remainC/79*100);
+      return `🍚 <strong>Riz pour finir tes glucides du jour :</strong><br>Tu as déjà ${today.carbs}g sur ${macros.carbs}g → il reste <strong>${remainC}g de glucides</strong>.<br>→ Peser <strong>${grams}g de riz CRU</strong> (= ~${Math.round(grams*3)}g cuit)<br>→ ~${Math.round(356*grams/100)} kcal<br><br>💡 Toujours peser cru.`;
+    }
+    return `🍚 <strong>Riz à peser :</strong><br>Ton objectif glucides en phase ${phase} : <strong>${macros.carbs}g/j</strong>.<br><br>Conversions pratiques :<br>• Pour 50g glucides → <strong>63g cru</strong> (~190g cuit)<br>• Pour 80g glucides → <strong>101g cru</strong> (~303g cuit)<br>• Pour 100g glucides → <strong>127g cru</strong> (~381g cuit)<br><br>📌 <strong>100g riz cru</strong> = 356 kcal · 79g glucides · 7g protéines<br>💡 Cuit, le riz ×3 son poids. Peser toujours avant cuisson.`;
+  }
+
+  // === PESAGE PÂTES ===
+  if(intent==='pates_peser'){
+    const carbMatch=m.match(/(\d+)\s*(g|gramme)/);
+    if(carbMatch){
+      const tc=parseInt(carbMatch[1]);const g=Math.round(tc/70*100);
+      return `🍝 <strong>Pâtes pour ${tc}g de glucides :</strong><br>→ Peser <strong>${g}g cru</strong> (= ~${Math.round(g*2.5)}g cuit)<br>→ ~${Math.round(354*g/100)} kcal · ~${Math.round(13*g/100)}g protéines<br><br>💡 Toujours peser sèches (crues) avant cuisson.`;
+    }
+    return `🍝 <strong>Pâtes à peser :</strong><br>• Pour 50g glucides → <strong>71g cru</strong> (~178g cuit)<br>• Pour 80g glucides → <strong>114g cru</strong> (~285g cuit)<br>• Pour 100g glucides → <strong>143g cru</strong> (~358g cuit)<br><br>📌 <strong>100g pâtes sèches</strong> = 354 kcal · 70g glucides · 13g protéines<br>💡 Cuites, les pâtes ×2.5 leur poids. Toujours peser sèches.`;
+  }
+
+  // === PESAGE POULET / VIANDE ===
+  if(intent==='poulet_peser'){
+    const protMatch=m.match(/(\d+)\s*(g|gramme)/);
+    let targetProt=protMatch?parseInt(protMatch[1]):null;
+    if(!targetProt&&today&&today.protein){targetProt=Math.max(0,macros.protein-today.protein);}
+    if(targetProt){
+      const g=Math.round(targetProt/0.23);const kcal=Math.round(110*g/100);
+      const gTh=Math.round(targetProt/0.22);const gSaumon=Math.round(targetProt/0.20);
+      return `🍗 <strong>Pour atteindre ${targetProt}g de protéines :</strong><br>• Poulet blanc CRU : <strong>${g}g</strong> (~${kcal} kcal)<br>• Dinde crue : <strong>${gTh}g</strong><br>• Saumon cru : <strong>${gSaumon}g</strong><br>• Thon boîte : <strong>${Math.round(targetProt/0.20)}g</strong><br><br>💡 Peser cru. Le poulet perd ~25% à la cuisson (${g}g cru = ~${Math.round(g*0.75)}g cuit).`;
+    }
+    return `🍗 <strong>Poulet à peser :</strong><br>📌 100g poulet CRU = 110 kcal · 23g protéines<br>• Pour 30g prot → 130g cru (~98g cuit)<br>• Pour 45g prot → 196g cru (~147g cuit)<br>• Pour 55g prot → 239g cru (~179g cuit)<br><br>💡 Le poulet perd ~25% de son poids à la cuisson.`;
+  }
+
+  // === PROTÉINES MANQUANTES ===
+  if(intent==='prot_manquantes'){
+    if(today&&today.protein!=null){
+      const missing=macros.protein-today.protein;
+      if(missing<=0) return `✅ <strong>Objectif protéines atteint !</strong><br>Tu as mangé <strong>${today.protein}g</strong> sur <strong>${macros.protein}g</strong>. Bien joué, Anis.<br><br>Tu peux manger du riz ou des glucides pour finir tes calories si besoin.`;
+      const skyr=Math.round(missing/0.11);const poulet=Math.round(missing/0.23);const oeufs=Math.ceil(missing/7.5);const thon=Math.round(missing/0.20);
+      return `🥩 <strong>Protéines restantes aujourd'hui :</strong><br>${today.protein}g mangés / ${macros.protein}g objectif → <strong>il manque ${missing}g</strong><br><br>Pour compléter :<br>• <strong>${skyr}g de skyr</strong> (${Math.round(60*skyr/100)} kcal)<br>• OU <strong>${poulet}g de poulet cru</strong> (${Math.round(110*poulet/100)} kcal)<br>• OU <strong>${oeufs} œufs entiers</strong> (${oeufs*86} kcal)<br>• OU <strong>${thon}g de thon naturel</strong> (${Math.round(86*thon/100)} kcal)`;
+    }
+    return `🥩 <strong>Objectif protéines :</strong> <strong>${macros.protein}g/j</strong> (Phase ${phase}).<br><br>Enregistre d'abord ce que tu as mangé dans le 📓 <strong>Journal</strong>, et je te dirai exactement ce qu'il reste à atteindre.`;
+  }
+
+  // === MACROS RESTANTES ===
+  if(intent==='macros_restantes'){
+    if(today&&today.kcal&&today.protein){
+      const rKcal=macros.kcal-today.kcal,rProt=macros.protein-today.protein;
+      const rCarbs=(macros.carbs)-(today.carbs||0),rFat=(macros.fat)-(today.fat||0);
+      let conseil='';
+      if(rProt>30) conseil=`<br><br>🎯 <strong>Priorité :</strong> atteindre les protéines → ajoute ${Math.round(rProt/0.23)}g de poulet cru ou ${Math.round(rProt/0.11)}g de skyr.`;
+      else if(rKcal>200) conseil=`<br><br>🎯 <strong>Priorité :</strong> finir les calories → ajoute ${Math.round(rCarbs>0?rCarbs/79*100:0)}g de riz cru ou une collation lipidique.`;
+      else if(rKcal<-100) conseil=`<br><br>⚠️ <strong>Attention :</strong> tu es déjà à ${Math.abs(rKcal)} kcal au-dessus de l'objectif. Évite les extras.`;
+      return `📊 <strong>Bilan macros d'aujourd'hui :</strong><br>⚡ Calories : <strong>${today.kcal}</strong>/${macros.kcal} kcal → ${rKcal>0?'<span style="color:var(--success)">'+rKcal+' restantes</span>':'<span style="color:var(--danger)">'+Math.abs(rKcal)+' au-dessus</span>'}<br>🥩 Protéines : <strong>${today.protein}</strong>/${macros.protein}g → ${rProt>0?rProt+'g à atteindre':'✅ objectif atteint'}<br>🌾 Glucides : <strong>${today.carbs||'?'}</strong>/${macros.carbs}g → ${rCarbs>0?rCarbs+'g restants':'✅'}<br>🫒 Lipides : <strong>${today.fat||'?'}</strong>/${macros.fat}g → ${rFat>0?rFat+'g restants':'✅'}${conseil}`;
+    }
+    return `📊 Enregistre d'abord ta journée dans le 📓 <strong>Journal</strong> pour que je calcule tes macros restantes.`;
+  }
+
+  // === DÎNER ===
+  if(intent==='diner'){
+    let targetKcal=600,targetProt=50;
+    if(today&&today.kcal&&today.protein){targetKcal=Math.max(300,macros.kcal-today.kcal);targetProt=Math.max(20,macros.protein-today.protein);}
+    return `🍽️ <strong>Idée dîner adapté :</strong><br>Objectif restant estimé : ~${targetKcal} kcal · ~${targetProt}g protéines<br><br><strong>Option A — Classique léger :</strong><br>→ 200g saumon + 300g légumes vapeur + 10ml huile<br>→ ~480 kcal · 40g prot<br><br><strong>Option B — Omelette volume :</strong><br>→ 4 œufs entiers + 200g fromage blanc + légumes<br>→ ~420 kcal · 48g prot<br><br><strong>Option C — Riz + protéines :</strong><br>→ 200g poulet cru + 80g riz cru + 200g brocoli<br>→ ~560 kcal · 55g prot<br><br>${targetProt>60?'⚠️ Il te manque beaucoup de protéines — priorise les options A ou B.':'💡 Tu es bien aligné, choisis selon ton envie.'}`;
+  }
+
+  // === COLLATION ===
+  if(intent==='collation'){
+    return `🥛 <strong>Collations riches en protéines :</strong><br><br><strong>Rapides (pas de cuisson) :</strong><br>• 300g skyr + 100g fruits → 33g prot · 218 kcal<br>• 1 boîte thon (140g) + pain complet → 28g prot · 310 kcal<br>• 4 blancs d'œuf durs → 18g prot · 72 kcal<br>• 200g fromage blanc + 20g amandes → 21g prot · 196 kcal<br><br><strong>Avec préparation :</strong><br>• Omelette 3 œufs → 19g prot · 260 kcal<br>• Poulet froid 100g + légumes → 23g prot · 110 kcal`;
+  }
+
+  // === AVANT SÉANCE ===
+  if(intent==='avant_seance'){
+    return `⚡ <strong>Repas pré-entraînement (60–90 min avant) :</strong><br>• 1 banane + 200g skyr → 23g prot · 210 kcal<br>• 80g flocons d'avoine + 200g fromage blanc → 30g prot · 400 kcal<br><br><strong>30 min avant :</strong><br>• Banane seule si tu n'as pas mangé → énergie rapide<br><br>💡 Évite les lipides en grande quantité juste avant (ralentit la digestion). Glucides + protéines = combo optimal.`;
+  }
+
+  // === APRÈS SÉANCE ===
+  if(intent==='apres_seance'){
+    return `💪 <strong>Repas post-séance (dans les 90 min) :</strong><br>• 200g poulet + 120g riz cru + légumes → 55g prot · 680 kcal<br>• Shake whey (si tu en as) + banane → 30g prot · 200 kcal immédiat<br>• 400g fromage blanc + flocons → 33g prot · 500 kcal<br><br>💡 Priorité absolue après séance : <strong>protéines + glucides</strong>. C'est la fenêtre anabolique pour le haut du corps (dos, épaules, bras).`;
+  }
+
+  // === PAS FAIM ===
+  if(intent==='pas_faim'){
+    if(today&&today.protein&&today.protein<macros.protein-30){
+      const missing=macros.protein-today.protein;
+      return `😐 <strong>Pas faim mais objectif protéines non atteint :</strong><br>Il te manque encore ${missing}g de protéines.<br><br>Solutions légères (peu de volume) :<br>• 200g skyr liquide = 22g prot · 120 kcal<br>• 1 boîte thon égouttée = 28g prot · 120 kcal<br>• Shake whey dans de l'eau = 20–25g prot · 100 kcal<br><br>💡 Boire ses protéines est plus facile quand on n'a pas faim. L'objectif protéines est <strong>non négociable</strong> en recomposition.`;
+    }
+    return `😐 <strong>Pas faim ce soir :</strong><br>Si tu as déjà atteint tes protéines → tu peux passer, ça va.<br>Sinon, complète avec quelque chose de liquide : skyr ou fromage blanc.<br><br>💡 Une légère restriction calorique ponctuelle ne casse pas la progression. En revanche, la <strong>carence protéique répétée</strong> nuit au muscle.`;
+  }
+
+  // === TROP FAIM ===
+  if(intent==='trop_faim'){
+    return `😩 <strong>Faim excessive en déficit :</strong><br>C'est normal au début. Voici comment gérer :<br><br>• <strong>Volume alimentaire :</strong> légumes (300–400g) remplissent sans calories excessives<br>• <strong>Protéines :</strong> les plus rassasiantes · skyr, fromage blanc, œufs<br>• <strong>Glucides complexes :</strong> flocons d'avoine, légumineuses = satiété durable<br>• <strong>Eau :</strong> boire 500ml avant de manger réduit la faim de 20–30%<br><br>💡 Si la faim est chronique (7+ jours), augmente de 100–150 kcal via glucides. Un déficit soutenable > un déficit trop agressif.`;
+  }
+
+  // === DÉFICIT TROP AGRESSIF ===
+  if(intent==='deficit_agressif'){
+    if(today&&today.kcal&&today.kcal<1800){
+      return `🚨 <strong>Déficit dangereux détecté :</strong><br>Tu as enregistré <strong>${today.kcal} kcal</strong> — c'est insuffisant.<br><br>En dessous de 1800 kcal, tu risques :<br>• Perte musculaire (catabolisme)<br>• Fatigue chronique<br>• Récupération dégradée<br>• Stagnation hormonale<br><br><strong>Correction immédiate :</strong><br>Ajoute 100–200g de riz cuit (~130–260 kcal) ou 30g beurre de cacahuète (~176 kcal). Le bon déficit pour toi est <strong>−400 kcal</strong>, soit 2400 kcal/j.`;
+    }
+    return `⚠️ <strong>Évaluation du déficit :</strong><br>Ton objectif Phase 1 : <strong>2400 kcal/j</strong> (déficit de ~420 kcal sur maintien estimé 2820).<br><br>Un déficit bien calibré = 0.5–1% du poids par semaine = 415–830g.<br>Si tu perds plus → augmente de 100–200 kcal.<br>Si tu ne perds pas → vérifie le tracking et réduis les glucides de 30g.<br><br>💡 En recomposition, le déficit doit être modéré pour préserver le muscle.`;
+  }
+
+  // === SÉANCE RATÉE ===
+  if(intent==='seance_ratee'){
+    return `❌ <strong>Séance ratée — pas de panique :</strong><br><br>• Ta progression musculaire n'est pas effacée<br>• <strong>Ne reprends pas double</strong> la prochaine fois (surcharge = risque)<br>• Reprends normalement à la séance suivante<br><br>🎯 <strong>Ce qui compte :</strong><br>• 1 séance ratée / semaine = pas d'impact significatif<br>• 2+ séances ratées / semaine = commence à affecter la progression<br><br>💡 Si tu as raté car fatigué : bonne décision. Si c'est un manque de motivation : identifie pourquoi et ajuste (horaire, partenaire, préparation mentale).`;
+  }
+
+  // === MALADE ===
+  if(intent==='malade'){
+    return `🤒 <strong>Mode maladie — protocole adapté :</strong><br><br><strong>Jours 1–3 (phase aiguë) :</strong><br>• Arrêt complet musculation et cardio<br>• Repos prioritaire absolu<br>• Hydratation ×1.5 (eau + bouillons)<br>• Protéines légères : thon, blancs d'œuf, skyr<br>• Calories légèrement réduites sans forcer<br><br><strong>Jours 4–5 (récupération) :</strong><br>• Marche légère possible (20 min)<br>• Alimentation normale<br><br><strong>Reprise :</strong><br>• Muscu à 60–70% du volume habituel<br>• Pas d'intervalles cardio pendant 3–5 jours<br><br>💡 La maladie ne détruit pas tes muscles en 3–5 jours. La récupération de qualité vaut mieux que forcer.`;
+  }
+
+  // === FATIGUE + CARDIO ===
+  if(intent==='fatigue_cardio'){
+    const en=today&&today.energy?parseInt(today.energy):null;
+    if(en&&en<=3){
+      return `😴 <strong>Énergie très faible (${en}/10) :</strong><br><br>Conseil : <strong>ne fais pas les intervalles</strong> aujourd'hui.<br>Options :<br>• 20–25 min de marche rapide Zone 2 (FC max 140)<br>• Routine posture 20 min<br>• Repos complet si tu es vraiment épuisé<br><br>💡 La progression cardio ne se perd pas en un jour. Mais se blesser ou s'épuiser peut retarder de 1–2 semaines.`;
+    }
+    return `😴 <strong>Fatigue avant cardio :</strong><br><br>Énergie ≤4/10 → remplace par 20 min de marche Zone 2.<br>Énergie ≤2/10 → repos complet justifié.<br><br>En muscu fatigué :<br>• Réduis le volume de 30% (moins de séries)<br>• Garde exercices principaux, supprime auxiliaires<br><br>💡 Règle d'or : la <strong>régularité imparfaite > la perfection sporadique</strong>.`;
+  }
+
+  // === MAUVAIS SOMMEIL ===
+  if(intent==='mauvais_sommeil'){
+    const sl=today&&today.sleep?today.sleep:null;
+    return `😴 <strong>Mauvais sommeil — impact réel :</strong>${sl?` (${sl}h enregistrées)`:''}<br><br><strong>Effets sur ta transformation :</strong><br>• ↓ Synthèse protéique musculaire (moins de croissance)<br>• ↑ Cortisol → stockage graisseux et catabolisme<br>• ↓ Testostérone → moins d'anabolisme<br>• ↑ Ghreline (hormone de faim) → tu vas plus manger<br><br><strong>Ce jour-là :</strong><br>• Évite les intervalles et efforts max<br>• Privilégie Zone 2 légère ou repos<br>• Mange normalement (surtout les protéines)<br>• Dors 30 min si possible (sieste)<br><br>💡 7–8h de sommeil = facteur #1 de la recomposition.`;
+  }
+
+  // === REPRISE APRÈS PAUSE ===
+  if(intent==='reprise'){
+    const entries=getData('entries',[]);const now=new Date();
+    let lastActive=0;
+    for(let i=1;i<=30;i++){const d=new Date(now);d.setDate(d.getDate()-i);const e=entries.find(x=>x.date===d.toISOString().slice(0,10));if(e&&(e.muscu==='yes'||e.cardio==='yes')){lastActive=i;break;}}
+    return `🔄 <strong>Reprise après pause :</strong>${lastActive>0?` (dernière séance il y a ~${lastActive} jours)`:''}
+<br><br><strong>Protocole :</strong><br>• Semaine 1 : 60–70% du volume habituel<br>• Semaine 2 : 80% si récupération bien ressentie<br>• Semaine 3 : retour au niveau normal<br><br><strong>Cardio :</strong><br>• Reprends 1–2 niveaux en-dessous (ex: si tu étais sem 6 → reprends sem 4)<br>• Pas d'intervalles la première semaine<br><br>💡 Après 1 semaine de pause, tu perds très peu. Après 3 semaines+, reprise progressive obligatoire pour éviter blessures.`;
+  }
+
+  // === HYDRATATION ===
+  if(intent==='hydratation'){
+    const water=today?.water;
+    return `💧 <strong>Hydratation :</strong><br>Ton objectif : <strong>3L/jour minimum</strong>${water?` · Tu as bu ${water}L aujourd'hui`:''}.<br><br><strong>Jours d'entraînement :</strong> +500ml · <strong>Jours de cardio :</strong> +500ml à +1L.<br><br>Signes de déshydratation :<br>• Urines foncées<br>• Fatigue sans raison<br>• Crampes<br>• Faim excessive (souvent confondue avec soif)<br><br>💡 Boire 500ml d'eau avant de manger réduit la faim et aide au déficit.`;
+  }
+
+  // === CRU / CUIT ===
+  if(intent==='cru_cuit'){
+    return `⚖️ <strong>Cru vs Cuit — règles essentielles :</strong><br><br>🍚 Riz : 100g CRU = ~300g cuit (×3)<br>🍝 Pâtes : 100g CRU = ~250g cuit (×2.5)<br>🍗 Poulet : 100g CRU = ~75g cuit (perd ~25%)<br>🐟 Saumon : 100g CRU = ~80g cuit<br>🥔 Pomme de terre : 100g CRU ≈ 90g cuit<br><br><strong>Règle d'or :</strong> <strong>toujours peser CRU</strong> avant cuisson.<br>Si tu pèses cuit → riz : divise par 3 · pâtes : divise par 2.5 · poulet : multiplie par 1.33<br><br>💡 Peser cuit = erreurs fréquentes de tracking. Peser cru = résultats fiables.`;
+  }
+
+  // === CALORIES / REPAS MANGÉ ===
+  if(intent==='calorie_repas'){
+    // Essayer de parser les aliments mentionnés
+    const amounts={};
+    const regex=/(\d+)\s*g?\s*(de\s+)?(poulet|riz|pâtes|thon|saumon|oeuf|skyr|fromage blanc|flocons|banane)/gi;
+    let match;let totalKcal=0,totalProt=0,found=[];
+    while((match=regex.exec(msg))!==null){
+      const qty=parseInt(match[1]);const food=match[3].toLowerCase();
+      const kb=KB_FOODS[food]||KB_FOODS[Object.keys(KB_FOODS).find(k=>food.includes(k))];
+      if(kb){const kcal=Math.round(kb.kcal*qty/100);const prot=Math.round(kb.prot*qty/100);totalKcal+=kcal;totalProt+=prot;found.push(`${qty}g ${kb.name} → ${kcal} kcal · ${prot}g prot`);}
+    }
+    if(found.length>0){
+      const rKcal=today?macros.kcal-((today.kcal||0)+totalKcal):macros.kcal-totalKcal;
+      const rProt=today?macros.protein-((today.protein||0)+totalProt):macros.protein-totalProt;
+      return `📊 <strong>Calcul de tes macros :</strong><br>${found.map(f=>`• ${f}`).join('<br>')}<br><br><strong>Total cet aliment :</strong> ~${totalKcal} kcal · ~${totalProt}g protéines<br>${today?`<br><strong>Macros restantes :</strong><br>• Calories : ${rKcal>0?rKcal+' restantes':Math.abs(rKcal)+' au-dessus'}<br>• Protéines : ${rProt>0?rProt+'g à atteindre':'✅ objectif atteint'}`:''}<br><br>💡 Enregistre dans le Journal pour un suivi complet.`;
+    }
+    return `📊 <strong>Calculer tes macros :</strong><br>Pour que je calcule précisément, dis-moi les quantités :<br>Ex: "j'ai mangé 150g de poulet et 100g de riz"<br><br>Ou consulte la section 🥗 <strong>Aliments</strong> pour les valeurs de chaque aliment.`;
+  }
+
+  // === OBJECTIF CALORIES ===
+  if(intent==='calories_objectif'){
+    return `⚡ <strong>Tes objectifs caloriques (Phase ${phase}) :</strong><br><br>• Maintien estimé : <strong>2820 kcal</strong><br>• Objectif déficit : <strong>${macros.kcal} kcal/j</strong> (−${2820-macros.kcal} kcal)<br>• Protéines : <strong>${macros.protein}g</strong> (priorité absolue)<br>• Glucides : <strong>${macros.carbs}g</strong><br>• Lipides : <strong>${macros.fat}g</strong><br><br>${today&&today.kcal?`Aujourd'hui tu as enregistré <strong>${today.kcal} kcal</strong> → ${today.kcal<macros.kcal?`il reste ${macros.kcal-today.kcal} kcal à consommer.`:'objectif atteint ✅'}`:'Enregistre ta journée dans le Journal pour voir ton avancement.'}<br><br>💡 La priorité reste les protéines (180g). Les calories viennent en second.`;
+  }
+
+  // === MORPHOLOGIE / V-SHAPE ===
+  if(intent==='epaules_dos'){
+    return `🏋️ <strong>Priorité haut du corps — ta stratégie :</strong><br><br>Ton bas du corps est déjà développé → <strong>maintenance 1×/sem</strong>.<br><br><strong>Pour le V-shape :</strong><br>• Épaules : <strong>élévations latérales</strong> 5×15 = clé visuelle<br>• Dos large : <strong>tractions + tirage poulie</strong><br>• Dos épais : <strong>rowing barre</strong><br>• Taille fine : <strong>gainage, pas de squat lourd</strong><br><br><strong>Volume hebdo actuel :</strong><br>• Épaules : 18–22 séries/sem<br>• Dos : 20–24 séries/sem<br><br>💡 Pour que le V-shape soit visible, il faut aussi réduire le gras au niveau de la taille → déficit + cardio Zone 2.`;
+  }
+
+  // === FALLBACK INTELLIGENT ===
+  // Essayer de répondre quand même avec le contexte du jour
+  if(today){
+    const rKcal=macros.kcal-today.kcal,rProt=macros.protein-(today.protein||0);
+    return `🤖 <strong>Réponse basée sur ta journée :</strong><br><br>Situation du jour (${todayStr()}) :<br>• Calories : ${today.kcal||'—'}/${macros.kcal} kcal ${rKcal>0?`→ ${rKcal} restantes`:'→ ✅'}<br>• Protéines : ${today.protein||'—'}/${macros.protein}g ${rProt>0?`→ ${rProt}g à atteindre`:'→ ✅'}<br><br>Je peux t'aider sur :<br>🍚 Peser du riz/pâtes/poulet · 🥩 Protéines manquantes · 🍽️ Idée de repas · 📊 Macros restantes · 😴 Gestion fatigue · 🏃 Cardio adapté · 🔄 Reprise après pause<br><br>Reformule ta question ou clique sur une suggestion !`;
+  }
+  return `🤖 <strong>Coach ANIS·OS :</strong><br><br>Je peux t'aider avec :<br>🍚 <em>"Combien de riz peser ?"</em><br>🥩 <em>"Il me manque combien de protéines ?"</em><br>🍽️ <em>"Propose-moi un dîner"</em><br>📊 <em>"Mes macros restantes ?"</em><br>😴 <em>"J'ai mal dormi, je fais quoi ?"</em><br>🏃 <em>"J'ai raté ma séance"</em><br>🤒 <em>"Je suis malade"</em><br>🔄 <em>"Comment reprendre après une pause ?"</em><br><br>💡 Enregistre ta journée dans le 📓 <strong>Journal</strong> pour des réponses encore plus précises !`;
+}
+
+function sendChat(){
+  const input=document.getElementById('chat-input');
+  const msg=input.value.trim();if(!msg) return;
+  addChatMsg(msg,'user');input.value='';
+  const typing=document.createElement('div');typing.className='chat-msg bot typing';typing.innerHTML='<div class="bot-label">🤖 Coach</div>⋯';
+  document.getElementById('chat-messages').appendChild(typing);
+  document.getElementById('chat-messages').scrollTop=9999;
+  setTimeout(()=>{typing.remove();addChatMsg(processCoachMessage(msg),'bot');},350);
+}
+
+function sendSuggestion(el){document.getElementById('chat-input').value=el.textContent.replace(/^[^\s]+\s/,'');sendChat();}
+
+function addChatMsg(content,role){
+  const wrap=document.getElementById('chat-messages');
+  const div=document.createElement('div');
+  div.className=`chat-msg ${role}`;
+  if(role==='bot') div.innerHTML=`<div class="bot-label">🤖 Coach ANIS·OS</div>${content}`;
+  else div.innerHTML=content;
+  wrap.appendChild(div);wrap.scrollTop=wrap.scrollHeight;
+}
+
+// ════════════════════════════════
+// EXPORT / RESET
+// ════════════════════════════════
+function exportCSV(){
+  const entries=getData('entries',[]);
+  const headers=['date','weight','kcal','protein','carbs','fat','water','steps','sleep','energy','cardio','muscu','posture','mood','notes'];
+  const rows=entries.map(e=>headers.map(h=>`"${(e[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+  download('anis-transformation.csv',[headers.join(','),...rows].join('\n'),'text/csv');
+  toast('📄 CSV exporté !');
+}
+function exportJSON(){
+  download('anis-transformation.json',JSON.stringify({entries:getData('entries',[]),measures:getData('measures',[]),posture:getData('posture_today',[])},null,2),'application/json');
+  toast('📦 JSON exporté !');
+}
+function download(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click();}
+function resetAll(){if(!confirm('⚠️ Réinitialiser toutes les données ? Irréversible.')) return;['entries','measures','posture_today'].forEach(k=>localStorage.removeItem('anis_'+k));toast('🗑️ Données réinitialisées');updateDashboard();}
+
+// ════════════════════════════════
+// TOAST
+// ════════════════════════════════
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+// ════════════════════════════════
+// INIT
+// ════════════════════════════════
+const lpd=localStorage.getItem('anis_posture_date');
+if(lpd!==todayStr()){localStorage.setItem('anis_posture_date',todayStr());setData('posture_today',[]);}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('m-date').value=todayStr();
+  currentTrackerDate=todayStr();
+  updateDashboard();
+  renderTrackerHistory();
+  renderWorkout();
+  renderPosture();
+  renderCardioSection();
+  document.querySelectorAll('.nav-btn')[1].classList.add('active');
+});
+</script>
+</body>
+</html>
